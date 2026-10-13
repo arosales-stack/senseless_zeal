@@ -8,113 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Hanken+Grotesk:wght@400;500&family=DM+Mono:wght@400&display=swap">
-<style>
-/* Layout: a quiet wall. Thin header, the drawings in an unframed column grid, a short statement, then the order sheet. */
-:root{
-  --bg:#ffffff; --fg:#111111; --muted:#76746f; --line:#e6e5e1; --veil:rgba(255,255,255,.97); --field:#f6f6f4;
-  --display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
-  --body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --mono:"DM Mono",ui-monospace,"SF Mono",Menlo,monospace;
-  --gutter:clamp(16px,4vw,48px);
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#080808;--fg:#ecebe7;--muted:#8d8b86;--line:#222120;--veil:rgba(8,8,8,.97);--field:#131312;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#080808;--fg:#ecebe7;--muted:#8d8b86;--line:#222120;--veil:rgba(8,8,8,.97);--field:#131312;color-scheme:dark}
-
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
-body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;padding-inline:var(--gutter)}
-a{color:inherit}
-button{font:inherit;color:inherit}
-:focus-visible{outline:1px solid var(--fg);outline-offset:3px}
-.label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-
-/* header */
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-block:22px 18px;border-bottom:1px solid var(--line)}
-.mark{font-family:var(--display);font-size:26px;letter-spacing:.02em;text-decoration:none;line-height:1}
-.mark i{font-style:italic}
-nav{display:flex;gap:clamp(14px,3vw,32px);align-items:baseline}
-nav a,.theme{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--muted);background:none;border:0;padding:0;cursor:pointer}
-nav a:hover,.theme:hover{color:var(--fg)}
-
-/* intro */
-.intro{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;padding-block:clamp(40px,8vw,96px) clamp(28px,5vw,56px)}
-.intro h1{font-family:var(--display);font-weight:400;font-size:clamp(30px,5vw,58px);line-height:1.05;margin:0;max-width:16ch;text-wrap:balance}
-.intro h1 i{font-style:italic}
-.intro p{margin:0;max-width:30ch;color:var(--muted)}
-
-/* grid */
-.wall{columns:3 300px;column-gap:clamp(16px,3vw,40px)}
-.piece{break-inside:avoid;margin:0 0 clamp(28px,4vw,52px);cursor:zoom-in;display:block;width:100%;text-align:left;background:none;border:0;padding:0}
-.piece img{display:block;width:100%;height:auto;background:var(--field);transition:opacity .35s ease}
-.piece:hover img{opacity:.88}
-.cap{display:flex;justify-content:space-between;gap:12px;margin-top:12px;align-items:baseline}
-.cap b{font-family:var(--display);font-weight:400;font-size:18px}
-.cap .label{white-space:nowrap}
-.more{border-top:1px solid var(--line);padding-block:20px 0;margin-top:8px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
-
-/* about */
-.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:clamp(24px,5vw,80px);padding-block:clamp(72px,10vw,140px);border-bottom:1px solid var(--line)}
-.about h2,.order h2{font-family:var(--display);font-weight:400;font-size:clamp(26px,3.4vw,40px);margin:0;line-height:1.1}
-.about .lede{font-family:var(--display);font-size:clamp(20px,2.3vw,28px);line-height:1.35;margin:0 0 28px;text-wrap:pretty;max-width:34ch}
-.about .lede i{font-style:italic}
-.about p{max-width:62ch;margin:0 0 16px}
-.facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:36px;padding-top:20px;border-top:1px solid var(--line)}
-.facts span{font-family:var(--mono);font-size:12px;letter-spacing:.04em}
-@media (max-width:760px){.about{grid-template-columns:1fr}}
-
-/* order */
-.order{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:clamp(24px,5vw,80px);padding-block:clamp(72px,10vw,140px)}
-@media (max-width:760px){.order{grid-template-columns:1fr}}
-.order aside p{color:var(--muted);max-width:34ch}
-.prices{margin-top:24px;display:grid;gap:6px;font-family:var(--mono);font-size:12px;max-width:260px}
-.prices div{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:6px;font-variant-numeric:tabular-nums}
-form{display:grid;grid-template-columns:1fr 1fr;gap:22px 24px}
-.f{display:flex;flex-direction:column;gap:8px;min-width:0}
-.f.wide{grid-column:1/-1}
-@media (max-width:520px){form{grid-template-columns:1fr}}
-input,select,textarea{font:inherit;color:var(--fg);background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:8px 0;width:100%;appearance:none}
-select{background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 10px) 55%,calc(100% - 5px) 55%;background-size:5px 5px;background-repeat:no-repeat;padding-right:24px}
-select option{background:var(--bg);color:var(--fg)}
-input:focus,select:focus,textarea:focus{outline:none;border-bottom-color:var(--fg)}
-textarea{resize:vertical;min-height:72px}
-.sizes{display:flex;flex-wrap:wrap;gap:8px}
-.sizes label{position:relative}
-.sizes input{position:absolute;opacity:0;width:1px;height:1px}
-.sizes span{display:inline-block;border:1px solid var(--line);padding:8px 14px;font-family:var(--mono);font-size:12px;cursor:pointer;font-variant-numeric:tabular-nums}
-.sizes input:checked+span{border-color:var(--fg);background:var(--fg);color:var(--bg)}
-.sizes input:focus-visible+span{outline:1px solid var(--fg);outline-offset:3px}
-.check{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14px}
-.check input{width:14px;height:14px;margin-top:4px;appearance:auto;accent-color:var(--fg)}
-.total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--fg);padding-top:16px}
-.total b{font-family:var(--display);font-weight:400;font-size:28px;font-variant-numeric:tabular-nums}
-.btn{background:var(--fg);color:var(--bg);border:1px solid var(--fg);padding:14px 26px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
-.btn:hover{background:transparent;color:var(--fg)}
-.btn[disabled]{opacity:.5;cursor:wait}
-.btn.ghost{background:transparent;color:var(--fg)}
-.btn.ghost:hover{background:var(--fg);color:var(--bg)}
-.err{color:var(--fg);font-size:14px;margin:0}
-.done{border:1px solid var(--line);padding:clamp(24px,4vw,40px)}
-.done h3{font-family:var(--display);font-weight:400;font-size:30px;margin:0 0 12px}
-.done p{margin:0 0 10px;max-width:52ch}
-.done .note{color:var(--muted);font-size:13px;margin-top:20px}
-
-footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-block:28px 40px;border-top:1px solid var(--line)}
-
-/* viewer */
-.viewer{position:fixed;inset:0;z-index:20;background:var(--veil);display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(20px,4vw,56px);padding:calc(env(safe-area-inset-top,0px) + 64px) var(--gutter) calc(env(safe-area-inset-bottom,0px) + 32px)}
-.viewer[hidden]{display:none!important}
-.stage{display:flex;align-items:center;justify-content:center;min-height:0;min-width:0}
-.stage img{max-width:100%;max-height:100%;object-fit:contain;cursor:zoom-out}
-.meta{align-self:end;display:flex;flex-direction:column;gap:14px;min-width:0}
-.meta h3{font-family:var(--display);font-weight:400;font-size:36px;line-height:1.05;margin:0}
-.meta p{margin:0;color:var(--muted)}
-.vbar{position:absolute;top:calc(env(safe-area-inset-top,0px) + 18px);left:var(--gutter);right:var(--gutter);display:flex;justify-content:space-between;align-items:center}
-.vbar div{display:flex;gap:22px}
-.vbar button{background:none;border:0;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:6px 0}
-.vbar button:hover{color:var(--fg)}
-@media (max-width:760px){.viewer{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;padding-top:calc(env(safe-area-inset-top,0px) + 56px)}.meta h3{font-size:28px}}
-</style>
+<link rel="stylesheet" href="css/site.css">
 </head>
 <body>
 
@@ -160,7 +54,7 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
       <h2>Order a print</h2>
       <p>Archival prints made from high-resolution scans of the original drawings. Place your order and you'll get a confirmation email with a secure payment link. Nothing is charged until you pay through that link.</p>
       <div class="prices" id="prices"></div>
-      <p style="margin-top:24px">Interested in an original? Tick the box and I'll write to you personally.</p>
+      <p class="aside-note">Interested in an original? Tick the box and I'll write to you personally.</p>
     </aside>
 
     <div id="orderBox">
@@ -193,10 +87,10 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
           <label class="label" for="note">Note (optional)</label>
           <textarea id="note" name="note" maxlength="600" placeholder="A dedication, a question, a delivery detail."></textarea>
         </div>
-        <label class="check wide f" for="original" style="flex-direction:row"><input type="checkbox" id="original" name="original"> I'm also interested in buying the original drawing.</label>
+        <label class="check wide" for="original"><input type="checkbox" id="original" name="original"> I'm also interested in buying the original drawing.</label>
         <div class="f wide total"><span class="label">Total, shipping included</span><b id="total">€0</b></div>
         <p class="err wide" id="err" role="alert" hidden></p>
-        <div class="f wide" style="flex-direction:row;justify-content:flex-end"><button class="btn" id="submit" type="submit">Place order</button></div>
+        <div class="actions wide"><button class="btn" id="submit" type="submit">Place order</button></div>
       </form>
     </div>
   </section>
@@ -226,126 +120,7 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
   </div>
 </div>
 
-<script>
-// ——— Edit here: works and prices ———
-const WORKS = [
-  {id:"heart",      title:"Corazón",     medium:"Hand-drawn stipple, white on black", w:1149,h:1369},
-  {id:"falling",    title:"Caída",       medium:"Hand-drawn line, two colours on black", w:1254,h:1254},
-  {id:"danse",      title:"Danse",       medium:"Hand-drawn line and stipple, white on black", w:1031,h:1400},
-  {id:"the-knife",  title:"The Knife",   medium:"Ink on paper", w:933,h:1400},
-  {id:"companion",  title:"Companion",   medium:"Ink on paper", w:933,h:1400},
-  {id:"mirror",     title:"Mirror",      medium:"Ink on paper", w:933,h:1400},
-  {id:"pincushion", title:"Pincushion",  medium:"Hand-drawn line and stipple, colour on black", w:977,h:1400},
-  {id:"le-diable",  title:"XV. Le Diable", medium:"Hand-drawn line, white and red on black", w:1052,h:1400},
-  {id:"le-pendu",   title:"XII. Le Pendu", medium:"Hand-drawn line, white on black", w:1075,h:1400},
-];
-const SIZES = [
-  {id:"A4", label:"A4 · 21 × 29.7 cm", price:35},
-  {id:"A3", label:"A3 · 29.7 × 42 cm", price:55},
-  {id:"A2", label:"A2 · 42 × 59.4 cm", price:90},
-];
-const ORDER_ENDPOINT = "/api/order";
-
-const $ = s => document.querySelector(s);
-const no = i => "Nº " + String(i+1).padStart(2,"0");
-const eur = n => "€" + n;
-
-// theme toggle (remembered per visitor)
-const root = document.documentElement;
-function currentTheme(){ return root.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); }
-function paintToggle(){ $("#theme").textContent = currentTheme()==="dark" ? "Light" : "Dark"; }
-try{ const t = localStorage.getItem("theme"); if(t) root.dataset.theme = t; }catch(e){}
-paintToggle();
-$("#theme").addEventListener("click",()=>{
-  root.dataset.theme = currentTheme()==="dark" ? "light" : "dark";
-  try{ localStorage.setItem("theme", root.dataset.theme); }catch(e){}
-  paintToggle();
-});
-matchMedia("(prefers-color-scheme: dark)").addEventListener("change", paintToggle);
-
-// wall
-const wall = $("#wall");
-WORKS.forEach((w,i)=>{
-  const b = document.createElement("button");
-  b.className = "piece"; b.type = "button";
-  b.innerHTML = `<img src="img/${w.id}-sm.webp" width="${w.w}" height="${w.h}" loading="${i<6?"eager":"lazy"}" alt="${w.title}, drawing by Audra"><span class="cap"><b></b><span class="label"></span></span>`;
-  b.querySelector("b").textContent = w.title;
-  b.querySelector(".cap .label").textContent = no(i);
-  b.addEventListener("click",()=>openViewer(i));
-  wall.appendChild(b);
-});
-$("#count").textContent = WORKS.length + " works shown";
-
-// prices list
-$("#prices").innerHTML = SIZES.map(s=>`<div><span>${s.label}</span><span>${eur(s.price)}</span></div>`).join("");
-
-// viewer
-let cur = 0, lastFocus = null;
-const viewer = $("#viewer");
-function show(i){
-  cur = (i + WORKS.length) % WORKS.length;
-  const w = WORKS[cur];
-  $("#vImg").src = `img/${w.id}.webp`;
-  $("#vImg").alt = w.title + ", drawing by Audra";
-  $("#vNo").textContent = no(cur);
-  $("#vIndex").textContent = (cur+1) + " / " + WORKS.length;
-  $("#vTitle").textContent = w.title;
-  $("#vMedium").textContent = w.medium;
-  $("#vFrom").textContent = "Prints from " + eur(SIZES[0].price) + " · Original on request";
-}
-function openViewer(i){ lastFocus = document.activeElement; show(i); viewer.hidden = false; document.body.style.overflow="hidden"; $("#vClose").focus(); }
-function closeViewer(){ viewer.hidden = true; document.body.style.overflow=""; lastFocus && lastFocus.focus(); }
-$("#vPrev").onclick = ()=>show(cur-1);
-$("#vNext").onclick = ()=>show(cur+1);
-$("#vClose").onclick = closeViewer;
-$("#vImg").onclick = closeViewer;
-$("#vOrder").onclick = ()=>{ $("#piece").value = WORKS[cur].id; updateTotal(); closeViewer(); $("#order").scrollIntoView(); setTimeout(()=>$("#name").focus({preventScroll:true}),400); };
-document.addEventListener("keydown",e=>{
-  if(viewer.hidden) return;
-  if(e.key==="Escape") closeViewer();
-  if(e.key==="ArrowRight") show(cur+1);
-  if(e.key==="ArrowLeft") show(cur-1);
-});
-let tx=null;
-viewer.addEventListener("touchstart",e=>{tx=e.touches[0].clientX},{passive:true});
-viewer.addEventListener("touchend",e=>{ if(tx===null) return; const d=e.changedTouches[0].clientX-tx; if(Math.abs(d)>50) show(cur+(d<0?1:-1)); tx=null; });
-
-// order form
-$("#piece").innerHTML = WORKS.map((w,i)=>`<option value="${w.id}">${no(i)} — ${w.title}</option>`).join("");
-$("#sizes").innerHTML = SIZES.map((s,i)=>`<label><input type="radio" name="size" value="${s.id}" ${i===0?"checked":""}><span>${s.id} · ${eur(s.price)}</span></label>`).join("");
-function order(){
-  const f = $("#form");
-  const size = SIZES.find(s=>s.id===f.size.value) || SIZES[0];
-  const qty = Math.min(10, Math.max(1, parseInt(f.qty.value,10) || 1));
-  const w = WORKS.find(x=>x.id===f.piece.value);
-  return {piece:w.id, title:w.title, size:size.id, unitPrice:size.price, qty, total:size.price*qty,
-          name:f.name.value.trim(), email:f.email.value.trim(), country:f.country.value.trim(),
-          note:f.note.value.trim(), original:f.original.checked};
-}
-function updateTotal(){ $("#total").textContent = eur(order().total); }
-$("#form").addEventListener("input", updateTotal);
-updateTotal();
-
-$("#form").addEventListener("submit", async e=>{
-  e.preventDefault();
-  const o = order(), err = $("#err");
-  const bad = !o.name ? "Add your name." : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(o.email) ? "Add a valid email so the payment link can reach you." : !o.country ? "Add the country the print ships to." : "";
-  if(bad){ err.textContent = bad; err.hidden = false; return; }
-  err.hidden = true;
-  const btn = $("#submit"); btn.disabled = true; btn.textContent = "Sending…";
-  let sent = false;
-  try{
-    const r = await fetch(ORDER_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(o)});
-    if(r.ok) sent = true;
-    else if(r.status !== 404 && r.status !== 405){ throw new Error("server"); }
-  }catch(ex){
-    if(ex.message==="server"){ err.textContent = "The order didn't go through. Check your connection and try again."; err.hidden=false; btn.disabled=false; btn.textContent="Place order"; return; }
-  }
-  const box = $("#orderBox");
-  box.innerHTML = `<div class="done" role="status"><span class="label">Order received</span><h3>Thank you.</h3><p></p><p>Check your inbox for the confirmation email with the payment link. Your print goes into production once payment is complete.</p><p class="note" ${sent?"hidden":""}>Preview: ordering goes live once the site is deployed, so this order was not sent.</p><button class="btn ghost" type="button" id="again" style="margin-top:20px">Order another print</button></div>`;
-  box.querySelector("p").textContent = `${o.qty} × ${o.title}, ${o.size} — ${eur(o.total)}.` + (sent ? ` Confirmation sent to ${o.email}.` : "");
-  $("#again").onclick = ()=>location.reload();
-});
-</script>
+<script src="js/works.js"></script>
+<script src="js/site.js"></script>
 </body>
 </html>
