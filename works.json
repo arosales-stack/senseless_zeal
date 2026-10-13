@@ -2,13 +2,13 @@
   "_help": "Source of truth for the wall. Order here = order on the site. Put the scan in originals/<id>.(webp|jpg|png), then run: python3 tools/build.py. 'frame' adds a border in the drawing's own background colour, as a fraction of the image's longest side on each edge (0 = leave as is). 'trim' shaves N pixels off each edge first (e.g. a scanner hairline).",
   "defaults": { "frame": 0.12, "trim": 0 },
   "works": [
-    { "id": "heart",      "title": "Corazón",       "medium": "Hand-drawn stipple, white on black" },
-    { "id": "falling",    "title": "Caída",         "medium": "Hand-drawn line, two colours on black" },
+    { "id": "heart",      "title": "Corazón",       "medium": "Hand-drawn stipple, white on black", "frame": 0.2 },
+    { "id": "falling",    "title": "Caída",         "medium": "Hand-drawn line, two colours on black", "frame": 0.2 },
     { "id": "danse",      "title": "Danse",         "medium": "Hand-drawn line and stipple, white on black" },
     { "id": "the-knife",  "title": "The Knife",     "medium": "Ink on paper", "trim": 3 },
     { "id": "companion",  "title": "Companion",     "medium": "Ink on paper", "frame": 0 },
     { "id": "mirror",     "title": "Mirror",        "medium": "Ink on paper", "frame": 0 },
-    { "id": "pincushion", "title": "Pincushion",    "medium": "Hand-drawn line and stipple, colour on black" },
+    { "id": "pincushion", "title": "Pincushion",    "medium": "Hand-drawn line and stipple, colour on black", "frame": 0.2 },
     { "id": "le-diable",  "title": "XV. Le Diable", "medium": "Hand-drawn line, white and red on black" },
     { "id": "le-pendu",   "title": "XII. Le Pendu", "medium": "Hand-drawn line, white on black" }
   ]

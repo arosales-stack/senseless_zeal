@@ -4,7 +4,7 @@ window.WORKS = [
   "id": "heart",
   "title": "Corazón",
   "medium": "Hand-drawn stipple, white on black",
-  "w": 1219,
+  "w": 1239,
   "h": 1400
  },
  {
@@ -46,7 +46,7 @@ window.WORKS = [
   "id": "pincushion",
   "title": "Pincushion",
   "medium": "Hand-drawn line and stipple, colour on black",
-  "w": 1059,
+  "w": 1098,
   "h": 1400
  },
  {
