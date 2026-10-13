@@ -28,7 +28,7 @@ matchMedia("(prefers-color-scheme: dark)").addEventListener("change", paintToggl
 
 // wall
 const wall = $("#wall");
-WORKS.forEach((w,i)=>{
+const pieces = WORKS.map((w,i)=>{
   const b = document.createElement("button");
   b.className = "piece"; b.type = "button";
   b.innerHTML = `<img src="img/${w.id}-sm.webp" width="${w.w}" height="${w.h}" loading="${i<6?"eager":"lazy"}" alt="${w.title}, drawing by Audra"><span class="cap"><b></b><span class="label"></span></span>`;
@@ -36,8 +36,48 @@ WORKS.forEach((w,i)=>{
   b.querySelector(".cap .label").textContent = no(i);
   b.addEventListener("click",()=>openViewer(i));
   wall.appendChild(b);
+  return b;
 });
-$("#count").textContent = WORKS.length + " works shown";
+
+// tag filter
+const TAGS = window.TAGS || [];
+let visible = WORKS.map((_,i)=>i);   // indices of works currently shown; the viewer cycles through these
+let activeTag = "";
+const filters = $("#filters");
+function filterButton(id,label,n){
+  const b = document.createElement("button");
+  b.type = "button"; b.dataset.tag = id;
+  b.innerHTML = `<span></span><sup></sup>`;
+  b.querySelector("span").textContent = label;
+  b.querySelector("sup").textContent = n;
+  b.addEventListener("click",()=>setTag(id));
+  filters.appendChild(b);
+}
+filterButton("", "All", WORKS.length);
+TAGS.forEach(t=>{
+  const n = WORKS.filter(w=>w.tags.includes(t.id)).length;
+  if(n) filterButton(t.id, t.label, n);
+});
+function setTag(id){
+  activeTag = TAGS.some(t=>t.id===id) ? id : "";
+  visible = [];
+  WORKS.forEach((w,i)=>{
+    const on = !activeTag || w.tags.includes(activeTag);
+    pieces[i].hidden = !on;
+    if(on) visible.push(i);
+  });
+  filters.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.tag===activeTag)));
+  const label = activeTag ? TAGS.find(t=>t.id===activeTag).label : "";
+  $("#count").textContent = visible.length + (visible.length===1?" work":" works") + (label ? " · " + label : " shown");
+  try{
+    const u = new URL(location.href);
+    activeTag ? u.searchParams.set("tag",activeTag) : u.searchParams.delete("tag");
+    history.replaceState(null,"",u);
+  }catch(e){}
+}
+let startTag = "";
+try{ startTag = new URL(location.href).searchParams.get("tag") || ""; }catch(e){}
+setTag(startTag);
 
 // prices list
 $("#prices").innerHTML = SIZES.map(s=>`<div><span>${s.label}</span><span>${eur(s.price)}</span></div>`).join("");
@@ -46,32 +86,34 @@ $("#prices").innerHTML = SIZES.map(s=>`<div><span>${s.label}</span><span>${eur(s
 let cur = 0, lastFocus = null;
 const viewer = $("#viewer");
 function show(i){
-  cur = (i + WORKS.length) % WORKS.length;
+  cur = i;
   const w = WORKS[cur];
   $("#vImg").src = `img/${w.id}.webp`;
   $("#vImg").alt = w.title + ", drawing by Audra";
   $("#vNo").textContent = no(cur);
-  $("#vIndex").textContent = (cur+1) + " / " + WORKS.length;
+  $("#vIndex").textContent = (visible.indexOf(cur)+1) + " / " + visible.length;
   $("#vTitle").textContent = w.title;
   $("#vMedium").textContent = w.medium;
   $("#vFrom").textContent = "Prints from " + eur(SIZES[0].price) + " · Original on request";
 }
+// step through the works currently visible under the active filter
+function step(d){ const k = visible.indexOf(cur); show(visible[(k + d + visible.length) % visible.length]); }
 function openViewer(i){ lastFocus = document.activeElement; show(i); viewer.hidden = false; document.body.style.overflow="hidden"; $("#vClose").focus(); }
 function closeViewer(){ viewer.hidden = true; document.body.style.overflow=""; lastFocus && lastFocus.focus(); }
-$("#vPrev").onclick = ()=>show(cur-1);
-$("#vNext").onclick = ()=>show(cur+1);
+$("#vPrev").onclick = ()=>step(-1);
+$("#vNext").onclick = ()=>step(1);
 $("#vClose").onclick = closeViewer;
 $("#vImg").onclick = closeViewer;
 $("#vOrder").onclick = ()=>{ $("#piece").value = WORKS[cur].id; updateTotal(); closeViewer(); $("#order").scrollIntoView(); setTimeout(()=>$("#name").focus({preventScroll:true}),400); };
 document.addEventListener("keydown",e=>{
   if(viewer.hidden) return;
   if(e.key==="Escape") closeViewer();
-  if(e.key==="ArrowRight") show(cur+1);
-  if(e.key==="ArrowLeft") show(cur-1);
+  if(e.key==="ArrowRight") step(1);
+  if(e.key==="ArrowLeft") step(-1);
 });
 let tx=null;
 viewer.addEventListener("touchstart",e=>{tx=e.touches[0].clientX},{passive:true});
-viewer.addEventListener("touchend",e=>{ if(tx===null) return; const d=e.changedTouches[0].clientX-tx; if(Math.abs(d)>50) show(cur+(d<0?1:-1)); tx=null; });
+viewer.addEventListener("touchend",e=>{ if(tx===null) return; const d=e.changedTouches[0].clientX-tx; if(Math.abs(d)>50) step(d<0?1:-1); tx=null; });
 
 // order form
 $("#piece").innerHTML = WORKS.map((w,i)=>`<option value="${w.id}">${no(i)} — ${w.title}</option>`).join("");

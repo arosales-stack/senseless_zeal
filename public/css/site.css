@@ -32,8 +32,18 @@ nav a:hover,.theme:hover{color:var(--fg)}
 .intro h1 i{font-style:italic}
 .intro p{margin:0;max-width:30ch;color:var(--muted)}
 
+section[id]{scroll-margin-top:80px}
+
+/* filters */
+.filters{display:flex;flex-wrap:wrap;gap:8px 28px;padding-bottom:18px;margin-bottom:clamp(24px,3vw,36px);border-bottom:1px solid var(--line)}
+.filters button{background:none;border:0;padding:4px 0;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid transparent;transition:color .2s ease,border-color .2s ease}
+.filters button:hover{color:var(--fg)}
+.filters button[aria-pressed="true"]{color:var(--fg);border-bottom-color:var(--fg)}
+.filters sup{font-size:9px;margin-left:3px;vertical-align:super;letter-spacing:0}
+
 /* grid */
 .wall{columns:3 300px;column-gap:clamp(16px,3vw,40px)}
+.piece[hidden]{display:none}
 .piece{break-inside:avoid;margin:0 0 clamp(28px,4vw,52px);cursor:zoom-in;display:block;width:100%;text-align:left;background:none;border:0;padding:0}
 .piece img{display:block;width:100%;height:auto;background:var(--field);transition:opacity .35s ease}
 .piece:hover img{opacity:.88}
