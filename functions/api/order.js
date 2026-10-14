@@ -4,7 +4,7 @@
 //
 // Environment variables (Pages → Settings → Variables and secrets):
 //   RESEND_API_KEY   secret, from resend.com
-//   FROM_EMAIL       e.g. "Audra <prints@yourdomain.com>" (domain verified in Resend)
+//   FROM_EMAIL       e.g. "Senseless Zeal <prints@yourdomain.com>" (domain verified in Resend)
 //   ORDER_TO_EMAIL   where orders land (your address)
 //   PAYMENT_LINK_A4 / PAYMENT_LINK_A3 / PAYMENT_LINK_A2
 //                    Stripe Payment Links, one per size (quantity adjustable in Stripe).
@@ -43,7 +43,7 @@ export async function onRequestPost({ request, env }) {
       : `<p>I'll send your payment link personally within 24 hours.</p>`}
     ${o.original ? `<p>You mentioned interest in the original drawing. I'll write to you about it.</p>` : ""}
     <p>Every work is drawn by hand. No AI.</p>
-    <p>Audra</p>
+    <p>Senseless Zeal</p>
   </div>`;
 
   const youHtml = `<pre style="font-family:monospace">${esc(JSON.stringify({ ref, name, email, country, title, piece: o.piece, size, qty, total, original: !!o.original, note, at: new Date().toISOString() }, null, 2))}</pre>`;

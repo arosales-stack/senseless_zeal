@@ -1,4 +1,4 @@
-# Audra — portfolio + print orders
+# Senseless Zeal — portfolio + print orders
 
 Static site (`public/`) plus one Cloudflare Pages Function (`functions/api/order.js`).
 No login, no database: each order sends a confirmation email with a Stripe payment link to the buyer, and a copy to you.
@@ -36,7 +36,7 @@ Create a Resend account, verify your domain, create an API key.
 1. Push this folder to GitHub, or run `npx wrangler pages deploy public` from this folder.
 2. Cloudflare → Workers & Pages → your project → Settings → Variables and secrets:
    - `RESEND_API_KEY` (secret)
-   - `FROM_EMAIL` — `Audra <prints@yourdomain.com>`
+   - `FROM_EMAIL` — `Senseless Zeal <prints@yourdomain.com>`
    - `ORDER_TO_EMAIL` — your address
    - `PAYMENT_LINK_A4`, `PAYMENT_LINK_A3`, `PAYMENT_LINK_A2`
 3. Build output directory: `public`. No build command.
