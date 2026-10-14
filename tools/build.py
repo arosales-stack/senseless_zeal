@@ -22,9 +22,20 @@ SRC = ROOT / "originals"
 OUT_IMG = ROOT / "public" / "img"
 OUT_JS = ROOT / "public" / "js" / "works.js"
 EXTS = (".webp", ".jpg", ".jpeg", ".png", ".tif", ".tiff")
-FULL_LONG_SIDE = 1400
+FULL_LONG_SIDE = 1000   # sharp on screens, too small for a usable print
 SMALL_HEIGHT = 720
-QUALITY = 90
+QUALITY = 82
+COPYRIGHT = "Copyright Senseless Zeal. All rights reserved. No reproduction without permission."
+
+
+def _exif():
+    e = Image.Exif()
+    e[0x8298] = COPYRIGHT          # Copyright
+    e[0x013B] = "Senseless Zeal"   # Artist
+    return e.tobytes()
+
+
+EXIF = _exif()
 
 
 def find_source(work_id):
@@ -78,8 +89,8 @@ def process(work, defaults):
     if not frame and not trim and not outline and scale >= 1 and src.suffix == ".webp":
         (OUT_IMG / f"{work['id']}.webp").write_bytes(src.read_bytes())  # untouched: no re-encode
     else:
-        full.save(OUT_IMG / f"{work['id']}.webp", "WEBP", quality=QUALITY, method=6)
-    small.save(OUT_IMG / f"{work['id']}-sm.webp", "WEBP", quality=QUALITY, method=6)
+        full.save(OUT_IMG / f"{work['id']}.webp", "WEBP", quality=QUALITY, method=6, exif=EXIF)
+    small.save(OUT_IMG / f"{work['id']}-sm.webp", "WEBP", quality=QUALITY, method=6, exif=EXIF)
     print(f"{work['id']:<12} frame={str(frame):<5} {full.width}x{full.height}")
     tone = "dark" if sum(edge_colour(full)) / 3 < 128 else "light"   # lets the page outline black drawings in dark mode
     return {"id": work["id"], "title": work["title"], "medium": work["medium"],

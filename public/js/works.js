@@ -9,8 +9,8 @@ window.WORKS = [
    "symbolism"
   ],
   "tone": "dark",
-  "w": 1204,
-  "h": 1400
+  "w": 860,
+  "h": 1000
  },
  {
   "id": "the-used",
@@ -20,8 +20,8 @@ window.WORKS = [
    "music-cover"
   ],
   "tone": "dark",
-  "w": 1127,
-  "h": 1400
+  "w": 805,
+  "h": 1000
  },
  {
   "id": "floating",
@@ -31,8 +31,8 @@ window.WORKS = [
    "symbolism"
   ],
   "tone": "dark",
-  "w": 1119,
-  "h": 1400
+  "w": 800,
+  "h": 1000
  },
  {
   "id": "companion",
@@ -42,8 +42,8 @@ window.WORKS = [
    "tim-burton"
   ],
   "tone": "light",
-  "w": 933,
-  "h": 1400
+  "w": 666,
+  "h": 1000
  },
  {
   "id": "heart",
@@ -54,8 +54,8 @@ window.WORKS = [
    "music-cover"
   ],
   "tone": "dark",
-  "w": 1239,
-  "h": 1400
+  "w": 885,
+  "h": 1000
  },
  {
   "id": "falling",
@@ -65,8 +65,8 @@ window.WORKS = [
    "music-cover"
   ],
   "tone": "dark",
-  "w": 1400,
-  "h": 1400
+  "w": 1000,
+  "h": 1000
  },
  {
   "id": "danse",
@@ -77,8 +77,8 @@ window.WORKS = [
    "music-cover"
   ],
   "tone": "dark",
-  "w": 1102,
-  "h": 1400
+  "w": 787,
+  "h": 1000
  },
  {
   "id": "the-knife",
@@ -89,8 +89,8 @@ window.WORKS = [
    "symbolism"
   ],
   "tone": "light",
-  "w": 1022,
-  "h": 1400
+  "w": 730,
+  "h": 1000
  },
  {
   "id": "mirror",
@@ -101,8 +101,8 @@ window.WORKS = [
    "symbolism"
   ],
   "tone": "light",
-  "w": 933,
-  "h": 1400
+  "w": 666,
+  "h": 1000
  },
  {
   "id": "pincushion",
@@ -112,8 +112,8 @@ window.WORKS = [
    "symbolism"
   ],
   "tone": "dark",
-  "w": 1098,
-  "h": 1400
+  "w": 784,
+  "h": 1000
  },
  {
   "id": "le-diable",
@@ -123,8 +123,8 @@ window.WORKS = [
    "tarot"
   ],
   "tone": "dark",
-  "w": 1119,
-  "h": 1400
+  "w": 800,
+  "h": 1000
  },
  {
   "id": "le-pendu",
@@ -134,8 +134,8 @@ window.WORKS = [
    "tarot"
   ],
   "tone": "dark",
-  "w": 1138,
-  "h": 1400
+  "w": 813,
+  "h": 1000
  },
  {
   "id": "heart-ink",
@@ -145,8 +145,8 @@ window.WORKS = [
    "symbolism"
   ],
   "tone": "light",
-  "w": 1400,
-  "h": 1400
+  "w": 1000,
+  "h": 1000
  },
  {
   "id": "golden-ring",
@@ -156,8 +156,8 @@ window.WORKS = [
    "symbolism"
   ],
   "tone": "dark",
-  "w": 1400,
-  "h": 1400
+  "w": 1000,
+  "h": 1000
  },
  {
   "id": "pin-throne",
@@ -167,8 +167,8 @@ window.WORKS = [
    "tim-burton"
   ],
   "tone": "dark",
-  "w": 1181,
-  "h": 1400
+  "w": 844,
+  "h": 1000
  },
  {
   "id": "jack",
@@ -178,7 +178,7 @@ window.WORKS = [
    "tim-burton"
   ],
   "tone": "dark",
-  "w": 1174,
-  "h": 1400
+  "w": 839,
+  "h": 1000
  }
 ];

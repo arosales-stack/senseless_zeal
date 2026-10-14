@@ -25,6 +25,10 @@ $("#theme").addEventListener("click",()=>{
 });
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change", paintToggle);
 
+// discourage casual saving: no right-click menu or dragging on the artwork
+document.addEventListener("contextmenu", e=>{ if(e.target.closest(".piece img, #vImg")) e.preventDefault(); });
+document.addEventListener("dragstart", e=>{ if(e.target.tagName==="IMG") e.preventDefault(); });
+
 // wall
 const wall = $("#wall");
 const pieces = WORKS.map((w,i)=>{
