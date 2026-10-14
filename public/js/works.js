@@ -8,6 +8,7 @@ window.WORKS = [
   "tags": [
    "symbolism"
   ],
+  "tone": "dark",
   "w": 1204,
   "h": 1400
  },
@@ -18,6 +19,7 @@ window.WORKS = [
   "tags": [
    "music-cover"
   ],
+  "tone": "dark",
   "w": 1127,
   "h": 1400
  },
@@ -28,6 +30,7 @@ window.WORKS = [
   "tags": [
    "symbolism"
   ],
+  "tone": "dark",
   "w": 1119,
   "h": 1400
  },
@@ -38,6 +41,7 @@ window.WORKS = [
   "tags": [
    "tim-burton"
   ],
+  "tone": "light",
   "w": 933,
   "h": 1400
  },
@@ -49,6 +53,7 @@ window.WORKS = [
    "symbolism",
    "music-cover"
   ],
+  "tone": "dark",
   "w": 1239,
   "h": 1400
  },
@@ -59,6 +64,7 @@ window.WORKS = [
   "tags": [
    "music-cover"
   ],
+  "tone": "dark",
   "w": 1400,
   "h": 1400
  },
@@ -70,6 +76,7 @@ window.WORKS = [
    "tim-burton",
    "music-cover"
   ],
+  "tone": "dark",
   "w": 1102,
   "h": 1400
  },
@@ -81,6 +88,7 @@ window.WORKS = [
    "tim-burton",
    "symbolism"
   ],
+  "tone": "light",
   "w": 1022,
   "h": 1400
  },
@@ -92,6 +100,7 @@ window.WORKS = [
    "tim-burton",
    "symbolism"
   ],
+  "tone": "light",
   "w": 933,
   "h": 1400
  },
@@ -102,6 +111,7 @@ window.WORKS = [
   "tags": [
    "symbolism"
   ],
+  "tone": "dark",
   "w": 1098,
   "h": 1400
  },
@@ -112,6 +122,7 @@ window.WORKS = [
   "tags": [
    "tarot"
   ],
+  "tone": "dark",
   "w": 1119,
   "h": 1400
  },
@@ -122,6 +133,7 @@ window.WORKS = [
   "tags": [
    "tarot"
   ],
+  "tone": "dark",
   "w": 1138,
   "h": 1400
  },
@@ -132,6 +144,7 @@ window.WORKS = [
   "tags": [
    "symbolism"
   ],
+  "tone": "light",
   "w": 1400,
   "h": 1400
  },
@@ -142,6 +155,7 @@ window.WORKS = [
   "tags": [
    "symbolism"
   ],
+  "tone": "dark",
   "w": 1400,
   "h": 1400
  },
@@ -152,6 +166,7 @@ window.WORKS = [
   "tags": [
    "tim-burton"
   ],
+  "tone": "dark",
   "w": 1181,
   "h": 1400
  },
@@ -162,6 +177,7 @@ window.WORKS = [
   "tags": [
    "tim-burton"
   ],
+  "tone": "dark",
   "w": 1174,
   "h": 1400
  }

@@ -29,7 +29,7 @@ matchMedia("(prefers-color-scheme: dark)").addEventListener("change", paintToggl
 const wall = $("#wall");
 const pieces = WORKS.map((w,i)=>{
   const b = document.createElement("button");
-  b.className = "piece"; b.type = "button";
+  b.className = "piece tone-" + w.tone; b.type = "button";
   b.innerHTML = `<img src="img/${w.id}-sm.webp" width="${w.w}" height="${w.h}" loading="${i<6?"eager":"lazy"}" alt="${w.title}, drawing by Senseless Zeal"><span class="cap"><b></b></span>`;
   b.querySelector("b").textContent = w.title;
   b.addEventListener("click",()=>openViewer(i));
@@ -106,6 +106,7 @@ function show(i){
   cur = i;
   const w = WORKS[cur];
   $("#vImg").src = `img/${w.id}.webp`;
+  $("#vImg").className = "tone-" + w.tone;
   $("#vImg").alt = w.title + ", drawing by Senseless Zeal";
   $("#vIndex").textContent = (visible.indexOf(cur)+1) + " / " + visible.length;
   $("#vTitle").textContent = w.title;

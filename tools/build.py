@@ -81,8 +81,9 @@ def process(work, defaults):
         full.save(OUT_IMG / f"{work['id']}.webp", "WEBP", quality=QUALITY, method=6)
     small.save(OUT_IMG / f"{work['id']}-sm.webp", "WEBP", quality=QUALITY, method=6)
     print(f"{work['id']:<12} frame={str(frame):<5} {full.width}x{full.height}")
+    tone = "dark" if sum(edge_colour(full)) / 3 < 128 else "light"   # lets the page outline black drawings in dark mode
     return {"id": work["id"], "title": work["title"], "medium": work["medium"],
-            "tags": work.get("tags", []), "w": full.width, "h": full.height}
+            "tags": work.get("tags", []), "tone": tone, "w": full.width, "h": full.height}
 
 
 def main():
