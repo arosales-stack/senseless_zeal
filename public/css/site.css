@@ -11,7 +11,6 @@
   --gutter:clamp(18px,4vw,48px);
   --r-field:16px;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#000000;--ink:#f3f3f1;--graphite:#a2a2a0;--hair:#262626;--wash:#111111;color-scheme:dark}}
 :root[data-theme="dark"]{--paper:#000000;--ink:#f3f3f1;--graphite:#a2a2a0;--hair:#262626;--wash:#111111;color-scheme:dark}
 
 *{box-sizing:border-box}
@@ -81,7 +80,6 @@ header{position:sticky;top:0;z-index:5;background:var(--paper);display:flex;alig
 .piece img{display:block;width:100%;height:auto;background:var(--wash);border-radius:4px;transition:transform .35s ease}
 .piece:hover img{transform:scale(.985)}
 /* in dark mode the black drawings get the same hairline the white scans carry, in white */
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tone-dark img,:root:not([data-theme="light"]) img.tone-dark{outline:1px solid rgba(255,255,255,.55);outline-offset:-1px}}
 :root[data-theme="dark"] .tone-dark img,:root[data-theme="dark"] img.tone-dark{outline:1px solid rgba(255,255,255,.55);outline-offset:-1px}
 .cap{display:block;margin-top:12px}
 .cap b{font-family:var(--display);font-weight:400;font-size:clamp(21px,2.2vw,24px);letter-spacing:-.005em}

@@ -1,5 +1,5 @@
 {
-  "_help": "Source of truth for the wall. Order here = order on the site. Put the scan in originals/<id>.(webp|jpg|png), then run: python3 tools/build.py. 'frame' adds a border in the drawing's own background colour, as a fraction of the image's longest side on each edge (0 = leave as is), or per side: {\"top\":0.28,\"left\":0.28,\"right\":0.08,\"bottom\":0.08}. 'trim' shaves N pixels off each edge first (e.g. a scanner hairline). 'tags' are ids from the tags list; a work can have several. 'outline' draws a thin border in that colour (for white-paper scans).",
+  "_help": "Source of truth for the wall. Order here = order on the site. Put the scan in originals/<id>.(webp|jpg|png), then run: python3 tools/build.py. 'frame' adds a border in the drawing's own background colour, as a fraction of the image's longest side on each edge (0 = leave as is), or per side: {\"top\":0.28,\"left\":0.28,\"right\":0.08,\"bottom\":0.08}. 'trim' shaves N pixels off each edge first (e.g. a scanner hairline). 'tags' are ids from the tags list; a work can have several. 'outline' draws a thin border in that colour (for white-paper scans). 'tighten' keeps only that fraction of the empty space around the drawing (0.4 = 40%), in proportion. Every work is then placed on an A4 canvas.",
   "tags": [
     {"id": "tim-burton", "label": "Tim Burton"},
     {"id": "tarot", "label": "Tarot Cards"},
@@ -21,8 +21,8 @@
     { "id": "le-diable", "title": "XV. Le Diable", "medium": "Hand-drawn line, white and red on black", "tags": ["tarot"]},
     { "id": "le-pendu", "title": "XII. Le Pendu", "medium": "Hand-drawn line, white on black", "tags": ["tarot"]},
     { "id": "heart-ink", "title": "Puked Heart", "medium": "Hand-drawn line, black on white", "frame": { "top": 0.28, "left": 0.28, "right": 0.08, "bottom": 0.08}, "tags": ["symbolism"], "outline": "#7a7a7a" },
-    { "id": "golden-ring", "title": "Golden Ring", "medium": "Hand-drawn line and stipple, gold and pink on black", "frame": 0.22, "tags": ["symbolism"]},
-    { "id": "pin-throne", "title": "Pin Cushion Queen", "medium": "Hand-drawn line and stipple, fluorescent colours on black", "frame": 0.3, "tags": ["tim-burton"]},
-    { "id": "jack", "title": "Jack", "medium": "Hand-drawn line, white on black", "tags": ["tim-burton"]}
+    { "id": "golden-ring", "title": "Golden Ring", "medium": "Hand-drawn line and stipple, gold and pink on black", "frame": 0.22, "tags": ["symbolism"], "tighten": 0.4 },
+    { "id": "pin-throne", "title": "Pin Cushion Queen", "medium": "Hand-drawn line and stipple, fluorescent colours on black", "frame": 0.3, "tags": ["tim-burton"], "tighten": 0.4 },
+    { "id": "jack", "title": "Jack", "medium": "Hand-drawn line, white on black", "tags": ["tim-burton"], "tighten": 0.4 , "crush": 28}
   ]
 }

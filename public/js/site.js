@@ -14,7 +14,7 @@ const eur = n => "€" + n;
 
 // theme toggle (remembered per visitor)
 const root = document.documentElement;
-function currentTheme(){ return root.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); }
+function currentTheme(){ return root.dataset.theme === "dark" ? "dark" : "light"; }   // light unless the visitor picks dark
 function paintToggle(){ $("#theme").setAttribute("aria-checked", String(currentTheme()==="dark")); }
 try{ const t = localStorage.getItem("theme"); if(t) root.dataset.theme = t; }catch(e){}
 paintToggle();
@@ -23,7 +23,6 @@ $("#theme").addEventListener("click",()=>{
   try{ localStorage.setItem("theme", root.dataset.theme); }catch(e){}
   paintToggle();
 });
-matchMedia("(prefers-color-scheme: dark)").addEventListener("change", paintToggle);
 
 // discourage casual saving: no right-click menu or dragging on the artwork
 document.addEventListener("contextmenu", e=>{ if(e.target.closest(".piece img, #vImg")) e.preventDefault(); });

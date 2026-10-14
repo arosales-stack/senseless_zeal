@@ -9,7 +9,7 @@ window.WORKS = [
    "symbolism"
   ],
   "tone": "dark",
-  "w": 860,
+  "w": 707,
   "h": 1000
  },
  {
@@ -20,7 +20,7 @@ window.WORKS = [
    "music-cover"
   ],
   "tone": "dark",
-  "w": 805,
+  "w": 707,
   "h": 1000
  },
  {
@@ -31,7 +31,7 @@ window.WORKS = [
    "symbolism"
   ],
   "tone": "dark",
-  "w": 800,
+  "w": 707,
   "h": 1000
  },
  {
@@ -42,7 +42,7 @@ window.WORKS = [
    "tim-burton"
   ],
   "tone": "light",
-  "w": 666,
+  "w": 707,
   "h": 1000
  },
  {
@@ -54,7 +54,7 @@ window.WORKS = [
    "music-cover"
   ],
   "tone": "dark",
-  "w": 885,
+  "w": 707,
   "h": 1000
  },
  {
@@ -65,7 +65,7 @@ window.WORKS = [
    "music-cover"
   ],
   "tone": "dark",
-  "w": 1000,
+  "w": 707,
   "h": 1000
  },
  {
@@ -77,7 +77,7 @@ window.WORKS = [
    "music-cover"
   ],
   "tone": "dark",
-  "w": 787,
+  "w": 707,
   "h": 1000
  },
  {
@@ -89,7 +89,7 @@ window.WORKS = [
    "symbolism"
   ],
   "tone": "light",
-  "w": 730,
+  "w": 707,
   "h": 1000
  },
  {
@@ -101,7 +101,7 @@ window.WORKS = [
    "symbolism"
   ],
   "tone": "light",
-  "w": 666,
+  "w": 707,
   "h": 1000
  },
  {
@@ -112,7 +112,7 @@ window.WORKS = [
    "symbolism"
   ],
   "tone": "dark",
-  "w": 784,
+  "w": 707,
   "h": 1000
  },
  {
@@ -123,7 +123,7 @@ window.WORKS = [
    "tarot"
   ],
   "tone": "dark",
-  "w": 800,
+  "w": 707,
   "h": 1000
  },
  {
@@ -134,7 +134,7 @@ window.WORKS = [
    "tarot"
   ],
   "tone": "dark",
-  "w": 813,
+  "w": 707,
   "h": 1000
  },
  {
@@ -145,7 +145,7 @@ window.WORKS = [
    "symbolism"
   ],
   "tone": "light",
-  "w": 1000,
+  "w": 707,
   "h": 1000
  },
  {
@@ -156,7 +156,7 @@ window.WORKS = [
    "symbolism"
   ],
   "tone": "dark",
-  "w": 1000,
+  "w": 707,
   "h": 1000
  },
  {
@@ -167,7 +167,7 @@ window.WORKS = [
    "tim-burton"
   ],
   "tone": "dark",
-  "w": 844,
+  "w": 707,
   "h": 1000
  },
  {
@@ -178,7 +178,7 @@ window.WORKS = [
    "tim-burton"
   ],
   "tone": "dark",
-  "w": 839,
+  "w": 707,
   "h": 1000
  }
 ];

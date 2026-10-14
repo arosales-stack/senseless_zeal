@@ -8,7 +8,7 @@ For each work:
   4. write public/img/<id>.webp (longest side 1400) and public/img/<id>-sm.webp (720 tall)
 Then write public/js/works.js with titles, media and final pixel sizes.
 
-Usage:  python3 tools/build.py          (add --a4 for the A4 test copy in public-a4/)
+Usage:  python3 tools/build.py          (every work is placed on an A4 canvas; --no-a4 to skip)
         python3 tools/build.py          (needs: pip install pillow numpy)
 """
 import json
@@ -58,7 +58,25 @@ def edge_colour(img):
     return tuple(int(v) for v in np.median(edges, axis=0))
 
 
-A4 = False   # set by --a4: also pad every work to A4 portrait proportions
+A4 = True   # every work sits on an A4 portrait canvas (--no-a4 for the original proportions)
+
+
+def content_margins(img, bg):
+    a = np.asarray(img).astype(int)
+    diff = np.abs(a - np.array(bg)).max(axis=2) > 40
+    rows, cols = np.where(diff.sum(axis=1) > 2)[0], np.where(diff.sum(axis=0) > 2)[0]
+    w, h = img.size
+    if not len(rows) or not len(cols):
+        return 0, 0, 0, 0
+    return rows[0], h - 1 - rows[-1], cols[0], w - 1 - cols[-1]   # T, B, L, R
+
+
+def tighten(img, keep):
+    """Shrink the empty space around the drawing to `keep` (e.g. 0.4 = 40%) on every side,
+    in proportion, so the drawing gets bigger without moving within its composition."""
+    T, B, L, R = content_margins(img, edge_colour(img))
+    w, h = img.size
+    return img.crop((round(L * (1 - keep)), round(T * (1 - keep)), w - round(R * (1 - keep)), h - round(B * (1 - keep))))
 
 
 def to_a4(img):
@@ -66,14 +84,8 @@ def to_a4(img):
     cropping or scaling. The new space is split in the same ratio as the existing margins
     around the drawing, so off-centre compositions keep their placement."""
     bg = edge_colour(img)
-    a = np.asarray(img).astype(int)
-    diff = np.abs(a - np.array(bg)).max(axis=2) > 40
-    rows, cols = np.where(diff.sum(axis=1) > 2)[0], np.where(diff.sum(axis=0) > 2)[0]
+    T, B, L, R = content_margins(img, bg)
     w, h = img.size
-    if len(rows) and len(cols):
-        T, B, L, R = rows[0], h - 1 - rows[-1], cols[0], w - 1 - cols[-1]
-    else:
-        T = B = L = R = 1
     ratio = 1 / 2 ** 0.5
     if w / h > ratio:      # too wide: add height
         extra = round(w / ratio) - h
@@ -95,6 +107,14 @@ def process(work, defaults):
     trim = work.get("trim", defaults["trim"])
     img = Image.open(find_source(work["id"])).convert("RGB")
 
+    if work.get("crush"):
+        # photographed (not scanned) black paper: push near-blacks to pure black so the frame has no seam
+        lim = work["crush"]
+        a = np.asarray(img).astype(int)
+        dark = a.max(axis=2) < lim
+        a[dark] = 0
+        img = Image.fromarray(a.astype("uint8"))
+
     if trim:
         w, h = img.size
         img = img.crop((trim, trim, w - trim, h - trim))
@@ -106,6 +126,9 @@ def process(work, defaults):
         framed = Image.new("RGB", (img.width + px["left"] + px["right"], img.height + px["top"] + px["bottom"]), edge_colour(img))
         framed.paste(img, (px["left"], px["top"]))
         img = framed
+
+    if work.get("tighten"):
+        img = tighten(img, work["tighten"])
 
     if A4:
         img = to_a4(img)
@@ -135,14 +158,8 @@ def process(work, defaults):
 
 def main():
     global A4, OUT_IMG, OUT_JS
-    if "--a4" in sys.argv:
-        # separate copy of the site with every work on an A4 canvas: public-a4/
-        import shutil
-        A4 = True
-        out = ROOT / "public-a4"
-        shutil.rmtree(out, ignore_errors=True)
-        shutil.copytree(ROOT / "public", out, ignore=shutil.ignore_patterns("img"))
-        OUT_IMG, OUT_JS = out / "img", out / "js" / "works.js"
+    if "--no-a4" in sys.argv:
+        A4 = False
     cfg = json.loads((ROOT / "works.json").read_text(encoding="utf-8"))
     OUT_IMG.mkdir(parents=True, exist_ok=True)
     tags = cfg.get("tags", [])
