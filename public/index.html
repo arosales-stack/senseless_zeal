@@ -50,7 +50,7 @@
   <section class="order" id="order">
     <aside>
       <h2>Order a print</h2>
-      <p>Archival prints made from high-resolution scans of the original drawings. Place your order and you'll get a confirmation email with a secure payment link. Nothing is charged until you pay through that link.</p>
+      <p>Archival prints made from high-resolution scans of the original drawings.</p>
       <div class="prices" id="prices"></div>
       <p class="aside-note">Interested in an original? Tick the box and I'll write to you personally.</p>
     </aside>
@@ -92,7 +92,10 @@
         <label class="check wide" for="original"><input type="checkbox" id="original" name="original"><span>I'm also interested in buying the original drawing.</span></label>
         <div class="total wide"><span>Total, shipping included</span><b id="total">€0</b></div>
         <p class="err wide" id="err" role="alert" hidden></p>
-        <div class="actions wide"><button class="btn" id="submit" type="submit">Place order</button></div>
+        <div class="actions wide">
+          <p class="paynote" id="paynote"><b>No payment is taken here.</b> Placing your order sends you an email with a secure payment link. You're only charged if you pay through that link.</p>
+          <button class="btn" id="submit" type="submit" aria-describedby="paynote">Place order</button>
+        </div>
       </form>
     </div>
   </section>
