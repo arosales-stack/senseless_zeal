@@ -150,7 +150,7 @@ window.WORKS = [
  },
  {
   "id": "golden-ring",
-  "title": "Golden Ring",
+  "title": "New Moon",
   "medium": "Hand-drawn line and stipple, gold and pink on black",
   "tags": [
    "symbolism"
