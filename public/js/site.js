@@ -74,10 +74,11 @@ function filterButton(id,label,n){
   filters.appendChild(b);
 }
 filterButton("", "All", WORKS.length);
-TAGS.forEach(t=>{
-  const n = WORKS.filter(w=>w.tags.includes(t.id)).length;
-  if(n) filterButton(t.id, t.label, n);
-});
+// tags listed by how many works they hold, biggest first
+TAGS.map(t=>({...t, n: WORKS.filter(w=>w.tags.includes(t.id)).length}))
+  .filter(t=>t.n)
+  .sort((a,b)=>b.n-a.n)
+  .forEach(t=>filterButton(t.id, t.label, t.n));
 function setTag(id){
   activeTag = TAGS.some(t=>t.id===id) ? id : "";
   visible = [];
