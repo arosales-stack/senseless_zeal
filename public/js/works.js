@@ -2,6 +2,46 @@
 window.TAGS = [{"id": "tim-burton", "label": "Tim Burton"}, {"id": "tarot", "label": "Tarot Cards"}, {"id": "music-cover", "label": "Music Cover"}, {"id": "symbolism", "label": "Symbolism"}];
 window.WORKS = [
  {
+  "id": "cosmic-heart",
+  "title": "Cosmic Heart",
+  "medium": "Hand-drawn line and stipple, white on black",
+  "tags": [
+   "symbolism"
+  ],
+  "w": 1204,
+  "h": 1400
+ },
+ {
+  "id": "the-used",
+  "title": "Heartwork by The Used",
+  "medium": "Hand-drawn line, white on black",
+  "tags": [
+   "music-cover"
+  ],
+  "w": 1127,
+  "h": 1400
+ },
+ {
+  "id": "floating",
+  "title": "Floating",
+  "medium": "Hand-drawn line and stipple, white on black",
+  "tags": [
+   "symbolism"
+  ],
+  "w": 1119,
+  "h": 1400
+ },
+ {
+  "id": "companion",
+  "title": "Dead with a Cat",
+  "medium": "Ink on paper",
+  "tags": [
+   "tim-burton"
+  ],
+  "w": 933,
+  "h": 1400
+ },
+ {
   "id": "heart",
   "title": "Corazón",
   "medium": "Hand-drawn stipple, white on black",
@@ -42,16 +82,6 @@ window.WORKS = [
    "symbolism"
   ],
   "w": 1022,
-  "h": 1400
- },
- {
-  "id": "companion",
-  "title": "Dead with a Cat",
-  "medium": "Ink on paper",
-  "tags": [
-   "tim-burton"
-  ],
-  "w": 933,
   "h": 1400
  },
  {
@@ -116,26 +146,6 @@ window.WORKS = [
   "h": 1400
  },
  {
-  "id": "cosmic-heart",
-  "title": "Cosmic Heart",
-  "medium": "Hand-drawn line and stipple, white on black",
-  "tags": [
-   "symbolism"
-  ],
-  "w": 1204,
-  "h": 1400
- },
- {
-  "id": "the-used",
-  "title": "Heartwork by The Used",
-  "medium": "Hand-drawn line, white on black",
-  "tags": [
-   "music-cover"
-  ],
-  "w": 1127,
-  "h": 1400
- },
- {
   "id": "pin-throne",
   "title": "Pin Cushion Queen",
   "medium": "Hand-drawn line and stipple, fluorescent colours on black",
@@ -143,16 +153,6 @@ window.WORKS = [
    "tim-burton"
   ],
   "w": 1181,
-  "h": 1400
- },
- {
-  "id": "floating",
-  "title": "Floating",
-  "medium": "Hand-drawn line and stipple, white on black",
-  "tags": [
-   "symbolism"
-  ],
-  "w": 1119,
   "h": 1400
  },
  {

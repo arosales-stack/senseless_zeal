@@ -33,9 +33,27 @@ const pieces = WORKS.map((w,i)=>{
   b.innerHTML = `<img src="img/${w.id}-sm.webp" width="${w.w}" height="${w.h}" loading="${i<6?"eager":"lazy"}" alt="${w.title}, drawing by Senseless Zeal"><span class="cap"><b></b></span>`;
   b.querySelector("b").textContent = w.title;
   b.addEventListener("click",()=>openViewer(i));
-  wall.appendChild(b);
   return b;
 });
+
+// Masonry that reads left to right: each work goes into the currently shortest column,
+// so the order in works.json is the order you see across the top rows.
+let lastCols = 0;
+function layout(force){
+  const gap = parseFloat(getComputedStyle(wall).columnGap) || 24;
+  const n = Math.max(1, Math.min(3, Math.floor((wall.clientWidth + gap) / (300 + gap))));
+  if(n === lastCols && !force) return;
+  lastCols = n;
+  const cols = Array.from({length:n}, ()=>{ const c=document.createElement("div"); c.className="col"; return c; });
+  const heights = new Array(n).fill(0);
+  visible.forEach(i=>{
+    const k = heights.indexOf(Math.min(...heights));
+    cols[k].appendChild(pieces[i]);
+    heights[k] += WORKS[i].h / WORKS[i].w + 0.25;   // image ratio + caption/spacing
+  });
+  wall.replaceChildren(...cols);
+}
+addEventListener("resize", ()=>layout(false));
 
 // tag filter
 const TAGS = window.TAGS || [];
@@ -62,9 +80,9 @@ function setTag(id){
   visible = [];
   WORKS.forEach((w,i)=>{
     const on = !activeTag || w.tags.includes(activeTag);
-    pieces[i].hidden = !on;
     if(on) visible.push(i);
   });
+  layout(true);
   filters.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.tag===activeTag)));
   const label = activeTag ? TAGS.find(t=>t.id===activeTag).label : "";
   $("#count").textContent = visible.length + (visible.length===1?" work":" works") + (label ? " in " + label : "");

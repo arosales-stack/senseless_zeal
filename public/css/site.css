@@ -65,15 +65,18 @@ header{position:sticky;top:0;z-index:5;background:var(--paper);display:flex;alig
 .tag{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px 0 12px;border:var(--stroke) solid var(--ink);border-radius:8px 999px 999px 8px;background:var(--paper);cursor:pointer;font-size:16px;font-weight:500;line-height:1;transition:background-color .2s ease,color .2s ease,transform .2s cubic-bezier(.34,1.56,.64,1)}
 .tag .hole{width:9px;height:9px;border-radius:50%;border:var(--stroke) solid var(--ink);flex:none;transition:border-color .2s ease,background-color .2s ease}
 .tag small{font-size:13px;font-weight:500;color:var(--graphite);font-variant-numeric:tabular-nums;transition:color .2s ease}
-.tag:hover{transform:rotate(-2deg)}
+.tag:hover{transform:scale(1.04)}
+.tag:active{transform:scale(.94)}
+.tag[aria-pressed="true"]{animation:tagpop .38s cubic-bezier(.34,1.56,.64,1)}
+@keyframes tagpop{0%{transform:scale(.92)}60%{transform:scale(1.06)}100%{transform:scale(1)}}
 .tag[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 .tag[aria-pressed="true"] .hole{background:var(--paper);border-color:var(--paper)}
 .tag[aria-pressed="true"] small{color:var(--paper);opacity:.7}
 
 /* wall */
-.wall{columns:3 300px;column-gap:clamp(18px,3vw,40px)}
-.piece[hidden]{display:none}
-.piece{break-inside:avoid;margin:0 0 clamp(32px,4vw,52px);cursor:zoom-in;display:block;width:100%;text-align:left;background:none;border:0;padding:0}
+.wall{display:flex;align-items:flex-start;column-gap:clamp(18px,3vw,40px)}
+.wall .col{flex:1 1 0;min-width:0}
+.piece{margin:0 0 clamp(32px,4vw,52px);cursor:zoom-in;display:block;width:100%;text-align:left;background:none;border:0;padding:0}
 .piece img{display:block;width:100%;height:auto;background:var(--wash);border-radius:4px;transition:transform .35s ease}
 .piece:hover img{transform:scale(.985)}
 .cap{display:block;margin-top:12px}

@@ -15,7 +15,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "originals"
@@ -63,13 +63,19 @@ def process(work, defaults):
         framed.paste(img, (px["left"], px["top"]))
         img = framed
 
+    outline = work.get("outline")
+    if outline:
+        # thin border like the scanner edge on Companion / Mirror (~2px at 1400px)
+        t = max(1, round(max(img.size) / 700))
+        ImageDraw.Draw(img).rectangle([0, 0, img.width - 1, img.height - 1], outline=outline, width=t)
+
     scale = FULL_LONG_SIDE / max(img.size)
     full = img.resize((round(img.width * scale), round(img.height * scale)), Image.LANCZOS) if scale < 1 else img
     small_scale = SMALL_HEIGHT / full.height
     small = full.resize((round(full.width * small_scale), SMALL_HEIGHT), Image.LANCZOS)
 
     src = find_source(work["id"])
-    if not frame and not trim and scale >= 1 and src.suffix == ".webp":
+    if not frame and not trim and not outline and scale >= 1 and src.suffix == ".webp":
         (OUT_IMG / f"{work['id']}.webp").write_bytes(src.read_bytes())  # untouched: no re-encode
     else:
         full.save(OUT_IMG / f"{work['id']}.webp", "WEBP", quality=QUALITY, method=6)
