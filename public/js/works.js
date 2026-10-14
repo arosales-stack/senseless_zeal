@@ -180,5 +180,28 @@ window.WORKS = [
   "tone": "dark",
   "w": 707,
   "h": 1000
+ },
+ {
+  "id": "chakras",
+  "title": "Chakras",
+  "medium": "Hand-drawn line and stipple, pink and yellow on black",
+  "tags": [
+   "symbolism"
+  ],
+  "tone": "dark",
+  "w": 707,
+  "h": 1000
+ },
+ {
+  "id": "paris",
+  "title": "Paris",
+  "medium": "Hand-drawn line, black on white",
+  "tags": [
+   "symbolism",
+   "skeleton"
+  ],
+  "tone": "light",
+  "w": 707,
+  "h": 1000
  }
 ];

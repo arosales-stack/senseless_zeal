@@ -79,7 +79,7 @@ def tighten(img, keep):
     return img.crop((round(L * (1 - keep)), round(T * (1 - keep)), w - round(R * (1 - keep)), h - round(B * (1 - keep))))
 
 
-def to_a4(img):
+def to_a4(img, align=None):
     """Extend the canvas to A4 portrait (1 : sqrt 2) in the background colour, without
     cropping or scaling. The new space is split in the same ratio as the existing margins
     around the drawing, so off-centre compositions keep their placement."""
@@ -89,11 +89,11 @@ def to_a4(img):
     ratio = 1 / 2 ** 0.5
     if w / h > ratio:      # too wide: add height
         extra = round(w / ratio) - h
-        top = round(extra * (T / (T + B) if T + B else .5))
+        top = round(extra * (.5 if align == "center" else (T / (T + B) if T + B else .5)))
         box, pos = (w, h + extra), (0, top)
     else:                  # too tall: add width
         extra = round(h * ratio) - w
-        left = round(extra * (L / (L + R) if L + R else .5))
+        left = round(extra * (.5 if align == "center" else (L / (L + R) if L + R else .5)))
         box, pos = (w + extra, h), (left, 0)
     out = Image.new("RGB", box, bg)
     out.paste(img, pos)
@@ -131,7 +131,7 @@ def process(work, defaults):
         img = tighten(img, work["tighten"])
 
     if A4:
-        img = to_a4(img)
+        img = to_a4(img, work.get("a4align"))
 
     outline = work.get("outline")
     if outline:
