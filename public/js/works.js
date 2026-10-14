@@ -35,7 +35,7 @@ window.WORKS = [
  },
  {
   "id": "the-knife",
-  "title": "The Knife",
+  "title": "Self-Made Mess",
   "medium": "Ink on paper",
   "tags": [
    "tim-burton",
@@ -46,7 +46,7 @@ window.WORKS = [
  },
  {
   "id": "companion",
-  "title": "Companion",
+  "title": "Dead with a Cat",
   "medium": "Ink on paper",
   "tags": [
    "tim-burton"
@@ -67,7 +67,7 @@ window.WORKS = [
  },
  {
   "id": "pincushion",
-  "title": "Pincushion",
+  "title": "Voodoo Girl",
   "medium": "Hand-drawn line and stipple, colour on black",
   "tags": [
    "symbolism"
@@ -97,7 +97,7 @@ window.WORKS = [
  },
  {
   "id": "heart-ink",
-  "title": "Heart in Ink",
+  "title": "Puked Heart",
   "medium": "Hand-drawn line, black on white",
   "tags": [
    "symbolism"
@@ -127,7 +127,7 @@ window.WORKS = [
  },
  {
   "id": "the-used",
-  "title": "The Used",
+  "title": "Heartwork by The Used",
   "medium": "Hand-drawn line, white on black",
   "tags": [
    "music-cover"
@@ -137,7 +137,7 @@ window.WORKS = [
  },
  {
   "id": "pin-throne",
-  "title": "Pin Throne",
+  "title": "Pin Cushion Queen",
   "medium": "Hand-drawn line and stipple, fluorescent colours on black",
   "tags": [
    "tim-burton"
