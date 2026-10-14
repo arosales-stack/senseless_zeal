@@ -19,12 +19,27 @@ button{font:inherit;color:inherit}
 .label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 
 /* header */
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-block:22px 18px;border-bottom:1px solid var(--line)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:22px 18px;border-bottom:1px solid var(--line)}
 .mark{font-family:var(--display);font-size:26px;letter-spacing:.02em;text-decoration:none;line-height:1}
 .mark i{font-style:italic}
-nav{display:flex;gap:clamp(14px,3vw,32px);align-items:baseline}
-nav a,.theme{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--muted);background:none;border:0;padding:0;cursor:pointer}
-nav a:hover,.theme:hover{color:var(--fg)}
+/* theme switch: a sun that rolls across and turns into a moon, stars come out */
+.theme{position:relative;flex:none;width:60px;height:30px;padding:0;border:1px solid var(--fg);border-radius:999px;background:var(--bg);cursor:pointer;overflow:hidden;transition:background-color .4s ease,border-color .4s ease}
+.theme .knob{position:absolute;top:6px;left:7px;width:16px;height:16px;border-radius:50%;background:var(--fg);
+  outline:2px dotted var(--fg);outline-offset:2px;  /* sun rays */
+  transition:transform .55s cubic-bezier(.68,-.45,.32,1.45),outline-color .3s ease}
+.theme .knob::after{content:"";position:absolute;top:-4px;right:-5px;width:15px;height:15px;border-radius:50%;background:var(--bg);transform:scale(0);transform-origin:70% 30%;transition:transform .4s ease .12s,background-color .4s ease}
+.theme .stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--fg);opacity:0;transform:scale(0);transition:opacity .3s ease,transform .3s ease}
+.theme .stars i:nth-child(1){left:10px;top:8px}
+.theme .stars i:nth-child(2){left:19px;top:17px;width:3px;height:3px}
+.theme .stars i:nth-child(3){left:13px;top:22px}
+.theme[aria-checked="true"] .knob{transform:translateX(28px) rotate(-30deg);outline-color:transparent}
+.theme[aria-checked="true"] .knob::after{transform:scale(1)}
+.theme[aria-checked="true"] .stars i{opacity:1;transform:scale(1);animation:twinkle 2.4s ease-in-out infinite}
+.theme[aria-checked="true"] .stars i:nth-child(1){transition-delay:.25s;animation-delay:.2s}
+.theme[aria-checked="true"] .stars i:nth-child(2){transition-delay:.35s;animation-delay:1s}
+.theme[aria-checked="true"] .stars i:nth-child(3){transition-delay:.45s;animation-delay:1.7s}
+@keyframes twinkle{50%{opacity:.25}}
+.theme:hover .knob{outline-offset:3px}
 
 /* intro */
 .intro{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;padding-block:clamp(40px,8vw,96px) clamp(28px,5vw,56px)}

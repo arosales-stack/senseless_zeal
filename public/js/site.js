@@ -16,7 +16,7 @@ const eur = n => "€" + n;
 // theme toggle (remembered per visitor)
 const root = document.documentElement;
 function currentTheme(){ return root.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); }
-function paintToggle(){ $("#theme").textContent = currentTheme()==="dark" ? "Light" : "Dark"; }
+function paintToggle(){ $("#theme").setAttribute("aria-checked", String(currentTheme()==="dark")); }
 try{ const t = localStorage.getItem("theme"); if(t) root.dataset.theme = t; }catch(e){}
 paintToggle();
 $("#theme").addEventListener("click",()=>{
