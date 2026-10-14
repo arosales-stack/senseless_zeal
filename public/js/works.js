@@ -134,5 +134,25 @@ window.WORKS = [
   ],
   "w": 1127,
   "h": 1400
+ },
+ {
+  "id": "pin-throne",
+  "title": "Pin Throne",
+  "medium": "Hand-drawn line and stipple, fluorescent colours on black",
+  "tags": [
+   "tim-burton"
+  ],
+  "w": 1181,
+  "h": 1400
+ },
+ {
+  "id": "floating",
+  "title": "Floating",
+  "medium": "Hand-drawn line and stipple, white on black",
+  "tags": [
+   "symbolism"
+  ],
+  "w": 1119,
+  "h": 1400
  }
 ];
