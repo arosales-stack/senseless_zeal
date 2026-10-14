@@ -10,7 +10,6 @@ const SIZES = [
 const ORDER_ENDPOINT = "/api/order";
 
 const $ = s => document.querySelector(s);
-const no = i => "Nº " + String(i+1).padStart(2,"0");
 const eur = n => "€" + n;
 
 // theme toggle (remembered per visitor)
@@ -31,9 +30,8 @@ const wall = $("#wall");
 const pieces = WORKS.map((w,i)=>{
   const b = document.createElement("button");
   b.className = "piece"; b.type = "button";
-  b.innerHTML = `<img src="img/${w.id}-sm.webp" width="${w.w}" height="${w.h}" loading="${i<6?"eager":"lazy"}" alt="${w.title}, drawing by Senseless Zeal"><span class="cap"><b></b><span class="label"></span></span>`;
+  b.innerHTML = `<img src="img/${w.id}-sm.webp" width="${w.w}" height="${w.h}" loading="${i<6?"eager":"lazy"}" alt="${w.title}, drawing by Senseless Zeal"><span class="cap"><b></b></span>`;
   b.querySelector("b").textContent = w.title;
-  b.querySelector(".cap .label").textContent = no(i);
   b.addEventListener("click",()=>openViewer(i));
   wall.appendChild(b);
   return b;
@@ -47,9 +45,10 @@ const filters = $("#filters");
 function filterButton(id,label,n){
   const b = document.createElement("button");
   b.type = "button"; b.dataset.tag = id;
-  b.innerHTML = `<span></span><sup></sup>`;
+  b.className = "tag";
+  b.innerHTML = `<i class="hole" aria-hidden="true"></i><span></span><small></small>`;
   b.querySelector("span").textContent = label;
-  b.querySelector("sup").textContent = n;
+  b.querySelector("small").textContent = n;
   b.addEventListener("click",()=>setTag(id));
   filters.appendChild(b);
 }
@@ -68,7 +67,7 @@ function setTag(id){
   });
   filters.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.tag===activeTag)));
   const label = activeTag ? TAGS.find(t=>t.id===activeTag).label : "";
-  $("#count").textContent = visible.length + (visible.length===1?" work":" works") + (label ? " · " + label : " shown");
+  $("#count").textContent = visible.length + (visible.length===1?" work":" works") + (label ? " in " + label : "");
   try{
     const u = new URL(location.href);
     activeTag ? u.searchParams.set("tag",activeTag) : u.searchParams.delete("tag");
@@ -90,11 +89,10 @@ function show(i){
   const w = WORKS[cur];
   $("#vImg").src = `img/${w.id}.webp`;
   $("#vImg").alt = w.title + ", drawing by Senseless Zeal";
-  $("#vNo").textContent = no(cur);
   $("#vIndex").textContent = (visible.indexOf(cur)+1) + " / " + visible.length;
   $("#vTitle").textContent = w.title;
   $("#vMedium").textContent = w.medium;
-  $("#vFrom").textContent = "Prints from " + eur(SIZES[0].price) + " · Original on request";
+  $("#vFrom").textContent = "Prints from " + eur(SIZES[0].price) + ". Originals on request.";
 }
 // step through the works currently visible under the active filter
 function step(d){ const k = visible.indexOf(cur); show(visible[(k + d + visible.length) % visible.length]); }
@@ -116,8 +114,8 @@ viewer.addEventListener("touchstart",e=>{tx=e.touches[0].clientX},{passive:true}
 viewer.addEventListener("touchend",e=>{ if(tx===null) return; const d=e.changedTouches[0].clientX-tx; if(Math.abs(d)>50) step(d<0?1:-1); tx=null; });
 
 // order form
-$("#piece").innerHTML = WORKS.map((w,i)=>`<option value="${w.id}">${no(i)} — ${w.title}</option>`).join("");
-$("#sizes").innerHTML = SIZES.map((s,i)=>`<label><input type="radio" name="size" value="${s.id}" ${i===0?"checked":""}><span>${s.id} · ${eur(s.price)}</span></label>`).join("");
+$("#piece").innerHTML = WORKS.map((w,i)=>`<option value="${w.id}">${w.title}</option>`).join("");
+$("#sizes").innerHTML = SIZES.map((s,i)=>`<label><input type="radio" name="size" value="${s.id}" ${i===0?"checked":""}><span><b>${s.id}</b>${eur(s.price)}</span></label>`).join("");
 function order(){
   const f = $("#form");
   const size = SIZES.find(s=>s.id===f.size.value) || SIZES[0];
@@ -127,6 +125,9 @@ function order(){
           name:f.name.value.trim(), email:f.email.value.trim(), country:f.country.value.trim(),
           note:f.note.value.trim(), original:f.original.checked};
 }
+function stepQty(d){ const q=$("#qty"); q.value = Math.min(10, Math.max(1, (parseInt(q.value,10)||1) + d)); updateTotal(); }
+$("#qtyDown").onclick = ()=>stepQty(-1);
+$("#qtyUp").onclick = ()=>stepQty(1);
 function updateTotal(){ $("#total").textContent = eur(order().total); }
 $("#form").addEventListener("input", updateTotal);
 updateTotal();
@@ -147,7 +148,7 @@ $("#form").addEventListener("submit", async e=>{
     if(ex.message==="server"){ err.textContent = "The order didn't go through. Check your connection and try again."; err.hidden=false; btn.disabled=false; btn.textContent="Place order"; return; }
   }
   const box = $("#orderBox");
-  box.innerHTML = `<div class="done" role="status"><span class="label">Order received</span><h3>Thank you.</h3><p></p><p>Check your inbox for the confirmation email with the payment link. Your print goes into production once payment is complete.</p><p class="note" ${sent?"hidden":""}>Preview: ordering goes live once the site is deployed, so this order was not sent.</p><button class="btn ghost" type="button" id="again">Order another print</button></div>`;
+  box.innerHTML = `<div class="done" role="status"><h3>Thank you.</h3><p></p><p>Check your inbox for the confirmation email with the payment link. Your print goes into production once payment is complete.</p><p class="note" ${sent?"hidden":""}>Preview: ordering goes live once the site is deployed, so this order was not sent.</p><button class="btn ghost" type="button" id="again">Order another print</button></div>`;
   box.querySelector("p").textContent = `${o.qty} × ${o.title}, ${o.size} — ${eur(o.total)}.` + (sent ? ` Confirmation sent to ${o.email}.` : "");
   $("#again").onclick = ()=>location.reload();
 });

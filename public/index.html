@@ -7,7 +7,7 @@
 <meta name="description" content="Hand-drawn works by Senseless Zeal. Prints to order, originals on request.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Hanken+Grotesk:wght@400;500&family=DM+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap">
 <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
@@ -29,21 +29,21 @@
   <section id="work" aria-label="Works">
     <div class="filters" id="filters" role="group" aria-label="Filter works by theme"></div>
     <div class="wall" id="wall"></div>
-    <div class="more"><span class="label" id="count"></span><span class="label">Every work drawn by hand. No AI.</span></div>
+    <div class="more"><span id="count"></span><span>Every work drawn by hand. No AI.</span></div>
   </section>
 
   <section class="about" id="about">
     <h2>About</h2>
     <div>
-      <p class="lede">I'm drawn to contradictions: <i>fragility and the grotesque, innocence and morbidity, order and chaos, tenderness and discomfort.</i></p>
+      <p class="lede">I'm drawn to contradictions: fragility and the grotesque, innocence and morbidity, order and chaos, tenderness and discomfort.</p>
       <p>I'm a self-taught amateur artist who rediscovered drawing during the 2020 lockdown, at a particularly depressing time in my life. I turn simple symbols into intricate, almost living forms. Deliberately imperfect.</p>
       <p>As for my influences, I'm an elder millennial raised on MySpace who never entirely grew out of her emo phase or Tim Burton's early work.</p>
-      <div class="facts">
-        <span>Based in Paris</span>
-        <span>Ink, by hand</span>
-        <span>No AI, at any stage</span>
-        <span>Originals on request</span>
-      </div>
+      <ul class="facts">
+        <li>Based in Paris</li>
+        <li>Ink, by hand</li>
+        <li>No AI, at any stage</li>
+        <li>Originals on request</li>
+      </ul>
     </div>
   </section>
 
@@ -67,7 +67,11 @@
         </div>
         <div class="f">
           <label class="label" for="qty">Quantity</label>
-          <input id="qty" name="qty" type="number" min="1" max="10" value="1" inputmode="numeric">
+          <div class="stepper">
+            <button type="button" id="qtyDown" aria-label="One less">−</button>
+            <input id="qty" name="qty" type="number" min="1" max="10" value="1" inputmode="numeric">
+            <button type="button" id="qtyUp" aria-label="One more">+</button>
+          </div>
         </div>
         <div class="f">
           <label class="label" for="country">Ship to (country)</label>
@@ -85,8 +89,8 @@
           <label class="label" for="note">Note (optional)</label>
           <textarea id="note" name="note" maxlength="600" placeholder="A dedication, a question, a delivery detail."></textarea>
         </div>
-        <label class="check wide" for="original"><input type="checkbox" id="original" name="original"> I'm also interested in buying the original drawing.</label>
-        <div class="f wide total"><span class="label">Total, shipping included</span><b id="total">€0</b></div>
+        <label class="check wide" for="original"><input type="checkbox" id="original" name="original"><span>I'm also interested in buying the original drawing.</span></label>
+        <div class="total wide"><span>Total, shipping included</span><b id="total">€0</b></div>
         <p class="err wide" id="err" role="alert" hidden></p>
         <div class="actions wide"><button class="btn" id="submit" type="submit">Place order</button></div>
       </form>
@@ -95,22 +99,21 @@
 </main>
 
 <footer>
-  <span class="label">© 2026 Senseless Zeal · Paris</span>
-  <span class="label">All works drawn by hand. Reproduction forbidden without permission.</span>
+  <span>© 2026 Senseless Zeal, Paris</span>
+  <span>All works drawn by hand. Reproduction forbidden without permission.</span>
 </footer>
 
 <div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-labelledby="vTitle">
   <div class="vbar">
-    <span class="label" id="vIndex"></span>
+    <span id="vIndex"></span>
     <div>
-      <button type="button" id="vPrev" aria-label="Previous work">← Prev</button>
-      <button type="button" id="vNext" aria-label="Next work">Next →</button>
-      <button type="button" id="vClose" aria-label="Close">Close ✕</button>
+      <button type="button" class="round" id="vPrev" aria-label="Previous work"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button type="button" class="round" id="vNext" aria-label="Next work"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      <button type="button" class="round" id="vClose" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
   </div>
   <div class="stage"><img id="vImg" alt=""></div>
   <div class="meta">
-    <span class="label" id="vNo"></span>
     <h3 id="vTitle"></h3>
     <p id="vMedium"></p>
     <p id="vFrom"></p>
