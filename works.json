@@ -22,6 +22,7 @@
     { "id": "cosmic-heart", "title": "Cosmic Heart", "medium": "Hand-drawn line and stipple, white on black", "frame": 0.22, "tags": ["symbolism"] },
     { "id": "the-used",     "title": "The Used",     "medium": "Hand-drawn line, white on black", "frame": 0.14, "tags": ["music-cover"] },
     { "id": "pin-throne",   "title": "Pin Throne",   "medium": "Hand-drawn line and stipple, fluorescent colours on black", "frame": 0.3, "tags": ["tim-burton"] },
-    { "id": "floating",     "title": "Floating",     "medium": "Hand-drawn line and stipple, white on black", "frame": 0, "tags": ["symbolism"] }
+    { "id": "floating",     "title": "Floating",     "medium": "Hand-drawn line and stipple, white on black", "frame": 0, "tags": ["symbolism"] },
+    { "id": "jack",         "title": "Jack",         "medium": "Hand-drawn line, white on black", "tags": ["tim-burton"] }
   ]
 }

@@ -154,5 +154,15 @@ window.WORKS = [
   ],
   "w": 1119,
   "h": 1400
+ },
+ {
+  "id": "jack",
+  "title": "Jack",
+  "medium": "Hand-drawn line, white on black",
+  "tags": [
+   "tim-burton"
+  ],
+  "w": 1174,
+  "h": 1400
  }
 ];
