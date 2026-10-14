@@ -8,7 +8,8 @@ For each work:
   4. write public/img/<id>.webp (longest side 1400) and public/img/<id>-sm.webp (720 tall)
 Then write public/js/works.js with titles, media and final pixel sizes.
 
-Usage:  python3 tools/build.py          (needs: pip install pillow numpy)
+Usage:  python3 tools/build.py          (add --a4 for the A4 test copy in public-a4/)
+        python3 tools/build.py          (needs: pip install pillow numpy)
 """
 import json
 import sys
@@ -57,7 +58,39 @@ def edge_colour(img):
     return tuple(int(v) for v in np.median(edges, axis=0))
 
 
+A4 = False   # set by --a4: also pad every work to A4 portrait proportions
+
+
+def to_a4(img):
+    """Extend the canvas to A4 portrait (1 : sqrt 2) in the background colour, without
+    cropping or scaling. The new space is split in the same ratio as the existing margins
+    around the drawing, so off-centre compositions keep their placement."""
+    bg = edge_colour(img)
+    a = np.asarray(img).astype(int)
+    diff = np.abs(a - np.array(bg)).max(axis=2) > 40
+    rows, cols = np.where(diff.sum(axis=1) > 2)[0], np.where(diff.sum(axis=0) > 2)[0]
+    w, h = img.size
+    if len(rows) and len(cols):
+        T, B, L, R = rows[0], h - 1 - rows[-1], cols[0], w - 1 - cols[-1]
+    else:
+        T = B = L = R = 1
+    ratio = 1 / 2 ** 0.5
+    if w / h > ratio:      # too wide: add height
+        extra = round(w / ratio) - h
+        top = round(extra * (T / (T + B) if T + B else .5))
+        box, pos = (w, h + extra), (0, top)
+    else:                  # too tall: add width
+        extra = round(h * ratio) - w
+        left = round(extra * (L / (L + R) if L + R else .5))
+        box, pos = (w + extra, h), (left, 0)
+    out = Image.new("RGB", box, bg)
+    out.paste(img, pos)
+    return out
+
+
 def process(work, defaults):
+    if A4:
+        work = {**work, **work.get("a4", {})}
     frame = work.get("frame", defaults["frame"])
     trim = work.get("trim", defaults["trim"])
     img = Image.open(find_source(work["id"])).convert("RGB")
@@ -74,6 +107,9 @@ def process(work, defaults):
         framed.paste(img, (px["left"], px["top"]))
         img = framed
 
+    if A4:
+        img = to_a4(img)
+
     outline = work.get("outline")
     if outline:
         # thin border like the scanner edge on Companion / Mirror (~2px at 1400px)
@@ -86,7 +122,7 @@ def process(work, defaults):
     small = full.resize((round(full.width * small_scale), SMALL_HEIGHT), Image.LANCZOS)
 
     src = find_source(work["id"])
-    if not frame and not trim and not outline and scale >= 1 and src.suffix == ".webp":
+    if not A4 and not frame and not trim and not outline and scale >= 1 and src.suffix == ".webp":
         (OUT_IMG / f"{work['id']}.webp").write_bytes(src.read_bytes())  # untouched: no re-encode
     else:
         full.save(OUT_IMG / f"{work['id']}.webp", "WEBP", quality=QUALITY, method=6, exif=EXIF)
@@ -98,6 +134,15 @@ def process(work, defaults):
 
 
 def main():
+    global A4, OUT_IMG, OUT_JS
+    if "--a4" in sys.argv:
+        # separate copy of the site with every work on an A4 canvas: public-a4/
+        import shutil
+        A4 = True
+        out = ROOT / "public-a4"
+        shutil.rmtree(out, ignore_errors=True)
+        shutil.copytree(ROOT / "public", out, ignore=shutil.ignore_patterns("img"))
+        OUT_IMG, OUT_JS = out / "img", out / "js" / "works.js"
     cfg = json.loads((ROOT / "works.json").read_text(encoding="utf-8"))
     OUT_IMG.mkdir(parents=True, exist_ok=True)
     tags = cfg.get("tags", [])
