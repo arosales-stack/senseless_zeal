@@ -94,5 +94,45 @@ window.WORKS = [
   ],
   "w": 1138,
   "h": 1400
+ },
+ {
+  "id": "heart-ink",
+  "title": "Heart in Ink",
+  "medium": "Hand-drawn line, black on white",
+  "tags": [
+   "symbolism"
+  ],
+  "w": 1400,
+  "h": 1400
+ },
+ {
+  "id": "golden-ring",
+  "title": "Golden Ring",
+  "medium": "Hand-drawn line and stipple, gold and pink on black",
+  "tags": [
+   "symbolism"
+  ],
+  "w": 1400,
+  "h": 1400
+ },
+ {
+  "id": "cosmic-heart",
+  "title": "Cosmic Heart",
+  "medium": "Hand-drawn line and stipple, white on black",
+  "tags": [
+   "symbolism"
+  ],
+  "w": 1204,
+  "h": 1400
+ },
+ {
+  "id": "the-used",
+  "title": "The Used",
+  "medium": "Hand-drawn line, white on black",
+  "tags": [
+   "music-cover"
+  ],
+  "w": 1127,
+  "h": 1400
  }
 ];

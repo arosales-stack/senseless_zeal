@@ -1,5 +1,5 @@
 {
-  "_help": "Source of truth for the wall. Order here = order on the site. Put the scan in originals/<id>.(webp|jpg|png), then run: python3 tools/build.py. 'frame' adds a border in the drawing's own background colour, as a fraction of the image's longest side on each edge (0 = leave as is). 'trim' shaves N pixels off each edge first (e.g. a scanner hairline). 'tags' are ids from the tags list; a work can have several.",
+  "_help": "Source of truth for the wall. Order here = order on the site. Put the scan in originals/<id>.(webp|jpg|png), then run: python3 tools/build.py. 'frame' adds a border in the drawing's own background colour, as a fraction of the image's longest side on each edge (0 = leave as is), or per side: {\"top\":0.28,\"left\":0.28,\"right\":0.08,\"bottom\":0.08}. 'trim' shaves N pixels off each edge first (e.g. a scanner hairline). 'tags' are ids from the tags list; a work can have several.",
   "tags": [
     { "id": "tim-burton",  "label": "Tim Burton" },
     { "id": "tarot",       "label": "Tarot Cards" },
@@ -16,6 +16,10 @@
     { "id": "mirror",     "title": "Mirror",        "medium": "Ink on paper", "frame": 0, "tags": ["tim-burton", "symbolism"] },
     { "id": "pincushion", "title": "Pincushion",    "medium": "Hand-drawn line and stipple, colour on black", "frame": 0.2, "tags": ["symbolism"] },
     { "id": "le-diable",  "title": "XV. Le Diable", "medium": "Hand-drawn line, white and red on black", "tags": ["tarot"] },
-    { "id": "le-pendu",   "title": "XII. Le Pendu", "medium": "Hand-drawn line, white on black", "tags": ["tarot"] }
+    { "id": "le-pendu",   "title": "XII. Le Pendu", "medium": "Hand-drawn line, white on black", "tags": ["tarot"] },
+    { "id": "heart-ink",    "title": "Heart in Ink", "medium": "Hand-drawn line, black on white", "frame": { "top": 0.28, "left": 0.28, "right": 0.08, "bottom": 0.08 }, "tags": ["symbolism"] },
+    { "id": "golden-ring",  "title": "Golden Ring",  "medium": "Hand-drawn line and stipple, gold and pink on black", "frame": 0.22, "tags": ["symbolism"] },
+    { "id": "cosmic-heart", "title": "Cosmic Heart", "medium": "Hand-drawn line and stipple, white on black", "frame": 0.22, "tags": ["symbolism"] },
+    { "id": "the-used",     "title": "The Used",     "medium": "Hand-drawn line, white on black", "frame": 0.14, "tags": ["music-cover"] }
   ]
 }

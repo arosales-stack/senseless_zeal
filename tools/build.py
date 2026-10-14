@@ -56,9 +56,11 @@ def process(work, defaults):
         img = img.crop((trim, trim, w - trim, h - trim))
 
     if frame:
-        pad = round(frame * max(img.size))
-        framed = Image.new("RGB", (img.width + 2 * pad, img.height + 2 * pad), edge_colour(img))
-        framed.paste(img, (pad, pad))
+        # a number = same border on every side; a dict {top,right,bottom,left} = per side
+        sides = frame if isinstance(frame, dict) else {k: frame for k in ("top", "right", "bottom", "left")}
+        px = {k: round(sides.get(k, 0) * max(img.size)) for k in ("top", "right", "bottom", "left")}
+        framed = Image.new("RGB", (img.width + px["left"] + px["right"], img.height + px["top"] + px["bottom"]), edge_colour(img))
+        framed.paste(img, (px["left"], px["top"]))
         img = framed
 
     scale = FULL_LONG_SIDE / max(img.size)
@@ -72,7 +74,7 @@ def process(work, defaults):
     else:
         full.save(OUT_IMG / f"{work['id']}.webp", "WEBP", quality=QUALITY, method=6)
     small.save(OUT_IMG / f"{work['id']}-sm.webp", "WEBP", quality=QUALITY, method=6)
-    print(f"{work['id']:<12} frame={frame:<5} {full.width}x{full.height}")
+    print(f"{work['id']:<12} frame={str(frame):<5} {full.width}x{full.height}")
     return {"id": work["id"], "title": work["title"], "medium": work["medium"],
             "tags": work.get("tags", []), "w": full.width, "h": full.height}
 
