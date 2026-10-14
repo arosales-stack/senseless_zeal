@@ -30,7 +30,7 @@ nav a:hover,.theme:hover{color:var(--fg)}
 .intro{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;padding-block:clamp(40px,8vw,96px) clamp(28px,5vw,56px)}
 .intro h1{font-family:var(--display);font-weight:400;font-size:clamp(30px,5vw,58px);line-height:1.05;margin:0;max-width:16ch;text-wrap:balance}
 .intro h1 i{font-style:italic}
-.intro p{margin:0;max-width:30ch;color:var(--muted)}
+.intro p{margin:0;max-width:38ch;color:var(--muted)}
 
 section[id]{scroll-margin-top:80px}
 
