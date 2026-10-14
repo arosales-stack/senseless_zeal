@@ -50,8 +50,7 @@ window.WORKS = [
   "title": "Corazón",
   "medium": "Hand-drawn stipple, white on black",
   "tags": [
-   "symbolism",
-   "music-cover"
+   "symbolism"
   ],
   "tone": "dark",
   "w": 707,
@@ -61,9 +60,7 @@ window.WORKS = [
   "id": "falling",
   "title": "Caída",
   "medium": "Hand-drawn line, two colours on black",
-  "tags": [
-   "music-cover"
-  ],
+  "tags": [],
   "tone": "dark",
   "w": 707,
   "h": 1000
@@ -73,8 +70,7 @@ window.WORKS = [
   "title": "Danse",
   "medium": "Hand-drawn line and stipple, white on black",
   "tags": [
-   "tim-burton",
-   "music-cover"
+   "tim-burton"
   ],
   "tone": "dark",
   "w": 707,
