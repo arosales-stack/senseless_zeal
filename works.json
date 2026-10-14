@@ -10,20 +10,20 @@
   "defaults": {"frame": 0.12, "trim": 0},
   "works": [
     { "id": "cosmic-heart", "title": "Cosmic Heart", "medium": "Hand-drawn line and stipple, white on black", "frame": 0.22, "tags": ["symbolism"]},
-    { "id": "the-used", "title": "Heartwork by The Used", "medium": "Hand-drawn line, white on black", "frame": 0.14, "tags": ["music-cover"]},
+    { "id": "the-used", "title": "Heartwork by The Used", "medium": "Hand-drawn line, white on black", "frame": 0.14, "tags": ["music-cover", "skeleton"]},
     { "id": "floating", "title": "Floating", "medium": "Hand-drawn line and stipple, white on black", "frame": 0, "tags": ["symbolism"]},
     { "id": "companion", "title": "Dead with a Cat", "medium": "Ink on paper", "frame": 0, "tags": ["skeleton"], "a4": {"trim": 3, "outline": "#7a7a7a"} },
     { "id": "heart", "title": "Corazón", "medium": "Hand-drawn stipple, white on black", "frame": 0.2, "tags": ["symbolism"]},
     { "id": "falling", "title": "Caída", "medium": "Hand-drawn line, two colours on black", "frame": 0.2, "tags": ["symbolism"]},
-    { "id": "danse", "title": "Danse", "medium": "Hand-drawn line and stipple, white on black", "tags": ["symbolism"]},
+    { "id": "danse", "title": "Danse", "medium": "Hand-drawn line and stipple, white on black", "tags": ["symbolism", "skeleton"]},
     { "id": "the-knife", "title": "Self-Made Mess", "medium": "Ink on paper", "trim": 3, "tags": ["symbolism"], "outline": "#7a7a7a" },
-    { "id": "mirror", "title": "Mirror", "medium": "Ink on paper", "frame": 0, "tags": ["symbolism"], "a4": {"trim": 3, "outline": "#7a7a7a"} },
+    { "id": "mirror", "title": "Mirror", "medium": "Ink on paper", "frame": 0, "tags": ["symbolism", "skeleton"], "a4": {"trim": 3, "outline": "#7a7a7a"} },
     { "id": "pincushion", "title": "Voodoo Girl", "medium": "Hand-drawn line and stipple, colour on black", "frame": 0.2, "tags": ["tim-burton"]},
     { "id": "le-diable", "title": "XV. Le Diable", "medium": "Hand-drawn line, white and red on black", "tags": ["tarot"]},
     { "id": "le-pendu", "title": "XII. Le Pendu", "medium": "Hand-drawn line, white on black", "tags": ["tarot"]},
     { "id": "heart-ink", "title": "Puked Heart", "medium": "Hand-drawn line, black on white", "frame": { "top": 0.28, "left": 0.28, "right": 0.08, "bottom": 0.08}, "tags": ["symbolism"], "outline": "#7a7a7a" },
     { "id": "golden-ring", "title": "New Moon", "medium": "Hand-drawn line and stipple, gold and pink on black", "frame": 0.22, "tags": ["symbolism"], "tighten": 0.4 },
     { "id": "pin-throne", "title": "Pin Cushion Queen", "medium": "Hand-drawn line and stipple, fluorescent colours on black", "frame": 0.3, "tags": ["tim-burton"], "tighten": 0.4 },
-    { "id": "jack", "title": "Jack", "medium": "Hand-drawn line, white on black", "tags": ["tim-burton"], "tighten": 0.4 , "crush": 28}
+    { "id": "jack", "title": "Jack", "medium": "Hand-drawn line, white on black", "tags": ["tim-burton", "skeleton"], "tighten": 0.4 , "crush": 28}
   ]
 }

@@ -17,7 +17,8 @@ window.WORKS = [
   "title": "Heartwork by The Used",
   "medium": "Hand-drawn line, white on black",
   "tags": [
-   "music-cover"
+   "music-cover",
+   "skeleton"
   ],
   "tone": "dark",
   "w": 707,
@@ -72,7 +73,8 @@ window.WORKS = [
   "title": "Danse",
   "medium": "Hand-drawn line and stipple, white on black",
   "tags": [
-   "symbolism"
+   "symbolism",
+   "skeleton"
   ],
   "tone": "dark",
   "w": 707,
@@ -94,7 +96,8 @@ window.WORKS = [
   "title": "Mirror",
   "medium": "Ink on paper",
   "tags": [
-   "symbolism"
+   "symbolism",
+   "skeleton"
   ],
   "tone": "light",
   "w": 707,
@@ -171,7 +174,8 @@ window.WORKS = [
   "title": "Jack",
   "medium": "Hand-drawn line, white on black",
   "tags": [
-   "tim-burton"
+   "tim-burton",
+   "skeleton"
   ],
   "tone": "dark",
   "w": 707,
