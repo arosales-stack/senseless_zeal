@@ -91,6 +91,10 @@ header{position:sticky;top:0;z-index:5;background:var(--paper);display:flex;alig
 .about h2,.order h2{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1;letter-spacing:-.01em}
 .about .lede{font-size:clamp(23px,3vw,32px);font-weight:500;line-height:1.25;letter-spacing:-.01em;margin:0;max-width:30ch;text-wrap:pretty}
 .about p{max-width:60ch;margin:0 0 16px}
+/* three sketchbook photos, same size, sitting in the About text column */
+.studio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,1.5vw,18px);margin-top:36px}
+.studio img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:4px;background:var(--wash);-webkit-touch-callout:none;user-select:none}
+
 /* influences: same pill language as the filter tags, but drawn with the switch's dotted line
    and no punched hole, because they're words, not buttons */
 .about .influences-label{margin:40px 0 14px;color:var(--graphite);font-size:16px}

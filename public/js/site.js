@@ -25,7 +25,7 @@ $("#theme").addEventListener("click",()=>{
 });
 
 // discourage casual saving: no right-click menu or dragging on the artwork
-document.addEventListener("contextmenu", e=>{ if(e.target.closest(".piece img, #vImg")) e.preventDefault(); });
+document.addEventListener("contextmenu", e=>{ if(e.target.closest(".piece img, #vImg, .studio img")) e.preventDefault(); });
 document.addEventListener("dragstart", e=>{ if(e.target.tagName==="IMG") e.preventDefault(); });
 
 // wall
