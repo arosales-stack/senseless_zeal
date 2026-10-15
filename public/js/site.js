@@ -137,21 +137,24 @@ function openViewer(i){
   document.body.style.overflow = "hidden";
   $("#vClose").focus();
 }
-function closeViewer(){
+function closeViewer(restoreFocus = true){
   viewer.hidden = true;
   document.body.style.overflow = "";
-  if(lastFocus) lastFocus.focus();
+  if(restoreFocus && lastFocus) lastFocus.focus({preventScroll:true});
 }
 $("#vPrev").addEventListener("click", () => step(-1));
 $("#vNext").addEventListener("click", () => step(1));
-$("#vClose").addEventListener("click", closeViewer);
-vImg.addEventListener("click", closeViewer);
+$("#vClose").addEventListener("click", () => closeViewer());
+vImg.addEventListener("click", () => closeViewer());
+// "Order this print": pick the work in the form, then land on the form in one instant jump.
+// No smooth scroll across the whole page, and no auto-focus on touch screens: opening the
+// keyboard mid-scroll is what made phones land in the wrong place.
 $("#vOrder").addEventListener("click", () => {
   $("#piece").value = WORKS[cur].id;
   updateTotal();
-  closeViewer();
-  $("#order").scrollIntoView();
-  setTimeout(() => $("#name").focus({preventScroll:true}), 400);
+  closeViewer(false);
+  $("#order").scrollIntoView({behavior:"instant", block:"start"});
+  if(matchMedia("(hover: hover) and (pointer: fine)").matches) $("#name").focus({preventScroll:true});
 });
 document.addEventListener("keydown", e => {
   if(viewer.hidden) return;
