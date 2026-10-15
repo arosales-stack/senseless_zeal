@@ -16,22 +16,31 @@ const SIZES = [
 const PRICES = {
   EUR: {A4:29, A3:49, A2:79},
   USD: {A4:32, A3:55, A2:89},
-  GBP: {A4:25, A3:42, A2:69},
-  CAD: {A4:45, A3:75, A2:125},
-  AUD: {A4:49, A3:85, A2:135},
-  NZD: {A4:55, A3:89, A2:145},
 };
-// The only countries we ship to, in this order, with the currency each one pays in.
+// The only countries we ship to: the United States and every EU country that uses the euro.
 const COUNTRIES = [
-  {code:"US", name:"United States",  cur:"USD"},
-  {code:"DE", name:"Germany",        cur:"EUR"},
-  {code:"FR", name:"France",         cur:"EUR"},
-  {code:"ES", name:"Spain",          cur:"EUR"},
-  {code:"IT", name:"Italy",          cur:"EUR"},
-  {code:"GB", name:"United Kingdom", cur:"GBP"},
-  {code:"CA", name:"Canada",         cur:"CAD"},
-  {code:"AU", name:"Australia",      cur:"AUD"},
-  {code:"NZ", name:"New Zealand",    cur:"NZD"},
+  {code:"US", name:"United States", cur:"USD"},
+  {code:"AT", name:"Austria",       cur:"EUR"},
+  {code:"BE", name:"Belgium",       cur:"EUR"},
+  {code:"BG", name:"Bulgaria",      cur:"EUR"},
+  {code:"HR", name:"Croatia",       cur:"EUR"},
+  {code:"CY", name:"Cyprus",        cur:"EUR"},
+  {code:"EE", name:"Estonia",       cur:"EUR"},
+  {code:"FI", name:"Finland",       cur:"EUR"},
+  {code:"FR", name:"France",        cur:"EUR"},
+  {code:"DE", name:"Germany",       cur:"EUR"},
+  {code:"GR", name:"Greece",        cur:"EUR"},
+  {code:"IE", name:"Ireland",       cur:"EUR"},
+  {code:"IT", name:"Italy",         cur:"EUR"},
+  {code:"LV", name:"Latvia",        cur:"EUR"},
+  {code:"LT", name:"Lithuania",     cur:"EUR"},
+  {code:"LU", name:"Luxembourg",    cur:"EUR"},
+  {code:"MT", name:"Malta",         cur:"EUR"},
+  {code:"NL", name:"Netherlands",   cur:"EUR"},
+  {code:"PT", name:"Portugal",      cur:"EUR"},
+  {code:"SK", name:"Slovakia",      cur:"EUR"},
+  {code:"SI", name:"Slovenia",      cur:"EUR"},
+  {code:"ES", name:"Spain",         cur:"EUR"},
 ];
 // Orders go straight to FormSubmit. The code below is FormSubmit's alias for the inbox:
 // it delivers to you without your email address ever appearing in the page.
