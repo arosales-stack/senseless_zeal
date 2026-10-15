@@ -1,6 +1,6 @@
 # Senseless Zeal — portfolio + print orders
 
-Static site (`public/`) plus one order endpoint (`functions/api/order.js`), deployed as a Cloudflare Worker.
+Static site (`public/`) deployed as a Cloudflare Worker; orders go through FormSubmit.
 No login, no database: each order sends a confirmation email with a Stripe payment link to the buyer, and a copy to you.
 
 ## Project layout
@@ -14,7 +14,9 @@ public/               what gets deployed
   js/site.js          viewer, order form, prices (SIZES)
   js/works.js         generated, don't edit
   img/                generated, don't edit
-functions/api/order.js
+worker/index.js       one link per work (senselesszeal.com/<id>)
+worker/works.json     generated, don't edit
+wrangler.jsonc        Cloudflare Workers config
 ```
 
 ## 1. Add or change works
@@ -24,24 +26,18 @@ functions/api/order.js
 
 Each image gets a frame in its own background colour so the drawing breathes away from the edges. `frame` is the border on each side as a fraction of the longest side (default `0.12`); set `"frame": 0` for scans that already have enough margin (Companion, Mirror). `trim` shaves pixels off the edges first, for scanner hairlines.
 
-Prices live in `SIZES` (`public/js/site.js`) and `PRICES` (`functions/api/order.js`). Keep them identical.
-
-## 2. Payments (Stripe Payment Links)
-Create one Payment Link per size (A4 €35, A3 €55, A2 €90) with "customer can adjust quantity" on. Paste each URL into the env vars below.
+Prices live in `SIZES` (`public/js/site.js`).
 
 ## 4. Deploy (Cloudflare Workers, connected to GitHub)
-The repo is connected to the `senseless-zeal` Worker. Every push to `main` deploys automatically.
-- `wrangler.jsonc` serves `public/` as the site; `worker/index.js` handles `POST /api/order`
-  using `functions/api/order.js` (the same file also works on Cloudflare Pages).
+Every push to `main` deploys automatically to senselesszeal.com.
+- `wrangler.jsonc` serves `public/` as the site; `worker/index.js` gives each work its own link
+  (senselesszeal.com/<id>) with the right title and image in link previews.
 - `originals/`, `tools/` and `works.json` are never published.
 
-Orders go through FormSubmit (free). In Cloudflare → Workers & Pages → senseless-zeal → Settings → Variables and secrets, add:
-- `FORMSUBMIT_TO` (secret) — the inbox that receives orders (kept out of this public repo)
-- optional `PAYMENT_LINK_A4`, `PAYMENT_LINK_A3`, `PAYMENT_LINK_A2` — Stripe Payment Links
-
-The first order triggers a FormSubmit activation email: click it once.
-Until those exist, the order form answers "not configured" instead of sending.
-Custom domain: Worker → Settings → Domains & Routes → Add → Custom domain.
+## 5. Orders
+The form posts straight from the page to FormSubmit using its alias for your inbox
+(`ORDER_ENDPOINT` in `public/js/site.js`), so your email address is never in the code.
+Buyers get an automatic confirmation; you get the order as a table.
 
 Local test: `npx wrangler dev` then open http://localhost:8787
 

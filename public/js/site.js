@@ -13,7 +13,9 @@ const SIZES = [
   {id:"A3", label:"A3 · 29.7 × 42 cm",   price:55},
   {id:"A2", label:"A2 · 42 × 59.4 cm",   price:90},
 ];
-const ORDER_ENDPOINT = "/api/order";
+// Orders go straight to FormSubmit. The code below is FormSubmit's alias for the inbox:
+// it delivers to you without your email address ever appearing in the page.
+const ORDER_ENDPOINT = "https://formsubmit.co/ajax/0518167f9410fac0f6a6d632b3ea176a";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const $   = s => document.querySelector(s);
@@ -251,25 +253,38 @@ form.addEventListener("submit", async e => {
   err.hidden = true;
   btn.disabled = true; btn.textContent = "Sending…";
 
-  let sent = false;
+  let sent = false;   // set once FormSubmit accepts the order
   try{
-    const r = await fetch(ORDER_ENDPOINT, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(o)});
-    if(r.ok) sent = true;
-    else if(![404, 405, 501].includes(r.status)) throw new Error("server");   // 404/405/501 = static preview, no backend
+    const ref = "SZ-" + Date.now().toString(36).toUpperCase().slice(-6);
+    const confirmation =
+      `Thank you, ${o.name}.\n\nYour order ${ref}: ${o.qty} × ${o.title}, ${o.size} print — ${eur(o.total)}, shipping to ${o.country} included.\n\n` +
+      `I'll send your secure payment link personally within 24 hours. Nothing is charged until you pay through it.\n\n` +
+      (o.original ? `You mentioned interest in the original drawing. I'll write to you about it.\n\n` : "") +
+      `Every work is drawn by hand. No AI.\nSenseless Zeal`;
+    const r = await fetch(ORDER_ENDPOINT, {
+      method:"POST",
+      headers:{"Content-Type":"application/json", Accept:"application/json"},
+      body:JSON.stringify({
+        _subject:`New order ${ref}: ${o.qty} × ${o.title} ${o.size} (${eur(o.total)})${o.original ? " + original interest" : ""}`,
+        _template:"table", _captcha:"false",
+        _autoresponse:confirmation,                 // FormSubmit emails this to the buyer ("email" field)
+        Reference:ref, Work:o.title, Size:o.size, Quantity:o.qty, Total:eur(o.total),
+        Name:o.name, email:o.email, Country:o.country,
+        "Interested in original":o.original ? "Yes" : "No", Note:o.note || "—",
+      }),
+    });
+    const res = await r.json().catch(() => ({}));
+    if(r.ok && String(res.success) !== "false") sent = true;
+    else throw new Error("server");
   }catch(ex){
-    // A server error is shown. A network error means no backend is reachable (the static preview),
-    // so the confirmation below is shown with the preview note, as before.
-    if(ex.message === "server"){
-      err.textContent = "The order didn't go through. Check your connection and try again.";
-      err.hidden = false; btn.disabled = false; btn.textContent = "Place order";
-      return;
-    }
+    err.textContent = "The order didn't go through. Check your connection and try again.";
+    err.hidden = false; btn.disabled = false; btn.textContent = "Place order";
+    return;
   }
 
   const box = $("#orderBox");
   box.innerHTML = `<div class="done" role="status"><h3>Thank you.</h3><p class="summary"></p>
     <p>Check your inbox for the confirmation email with the payment link. Your print goes into production once payment is complete.</p>
-    <p class="note"${sent ? " hidden" : ""}>Preview: ordering goes live once the site is deployed, so this order was not sent.</p>
     <button class="btn ghost" type="button" id="again">Order another print</button></div>`;
   box.querySelector(".summary").textContent = `${o.qty} × ${o.title}, ${o.size} — ${eur(o.total)}.` + (sent ? ` Confirmation sent to ${o.email}.` : "");
   $("#again").addEventListener("click", () => location.reload());
