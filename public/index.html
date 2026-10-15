@@ -9,37 +9,44 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Gloock&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap">
 <link rel="stylesheet" href="css/site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='7'/%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%23000' stroke-width='2' stroke-dasharray='1.5 3.2'/%3E%3C/svg%3E">
+<script>
+  /* apply the visitor's saved theme before first paint (no light flash for dark-mode visitors) */
+  try{ if(localStorage.getItem("theme")==="dark") document.documentElement.dataset.theme="dark"; }catch(e){}
+</script>
 </head>
 <body>
 
-<header>
-  <a class="mark" href="#top">Senseless Zeal</a>
-  <button class="theme" id="theme" type="button" role="switch" aria-checked="false" aria-label="Dark mode">
-    <span class="stars" aria-hidden="true"><i></i><i></i><i></i></span>
-    <span class="knob" aria-hidden="true"></span>
-  </button>
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="mark" href="#top">Senseless Zeal</a>
+    <button class="theme" id="theme" type="button" role="switch" aria-checked="false" aria-label="Dark mode">
+      <span class="stars" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="knob" aria-hidden="true"></span>
+    </button>
+  </div>
 </header>
 
-<main id="top">
+<main class="wrap" id="top">
   <section class="intro">
     <h1>Handmade linear work with markers</h1>
     <p>I like to draw simple yet detailed symbols and concepts with lines. No AI.</p>
   </section>
 
   <section id="work" aria-label="Works">
-    <div class="filters" id="filters" role="group" aria-label="Filter works by theme"></div>
+    <div class="filters bleed-row" id="filters" role="group" aria-label="Filter works by theme"></div>
     <div class="wall" id="wall"></div>
     <div class="more"><span id="count"></span><span>Every work drawn by hand. No AI.</span></div>
   </section>
 
-  <section class="about" id="about">
+  <section class="about split" id="about">
     <h2>About</h2>
     <div>
-      <p class="lede">I'm drawn to contradictions and symbols. I rediscovered drawing during the COVID lockdowns. No AI.</p>
-      <div class="studio">
-        <img src="img/studio/le-pendu-sketchbook.webp" width="720" height="960" loading="lazy" alt="XII. Le Pendu in the sketchbook, next to the original Marseille tarot card">
-        <img src="img/studio/voodoo-sketchbook.webp" width="720" height="960" loading="lazy" alt="Voodoo Girl in a black sketchbook, with the gel pens used to draw it">
-        <img src="img/studio/self-made-mess-sketchbook.webp" width="720" height="960" loading="lazy" alt="Self-Made Mess on an open sketchbook page">
+      <p class="lede">I'm drawn to contradictions and symbols. I rediscovered drawing during the COVID lockdowns.</p>
+      <div class="studio bleed-row">
+        <img src="img/studio/le-pendu-sketchbook.webp" width="720" height="960" loading="lazy" decoding="async" class="protect" alt="XII. Le Pendu in the sketchbook, next to the original Marseille tarot card">
+        <img src="img/studio/voodoo-sketchbook.webp" width="720" height="960" loading="lazy" decoding="async" class="protect" alt="Voodoo Girl in a black sketchbook, with the gel pens used to draw it">
+        <img src="img/studio/self-made-mess-sketchbook.webp" width="720" height="960" loading="lazy" decoding="async" class="protect" alt="Self-Made Mess on an open sketchbook page">
       </div>
       <p class="influences-label" id="influencesLabel">Influences</p>
       <ul class="influences" aria-labelledby="influencesLabel">
@@ -53,12 +60,12 @@
     </div>
   </section>
 
-  <section class="order" id="order">
+  <section class="order split" id="order">
     <aside>
       <h2>Order a print</h2>
       <p>Archival prints made from high-resolution scans of the original drawings.</p>
       <div class="prices" id="prices"></div>
-      <p class="aside-note">Interested in an original? Tick the box and I'll write to you personally.</p>
+      <p>Interested in an original? Tick the box and I'll write to you personally.</p>
     </aside>
 
     <div id="orderBox">
@@ -74,9 +81,9 @@
         <div class="f">
           <label class="label" for="qty">Quantity</label>
           <div class="stepper">
-            <button type="button" id="qtyDown" aria-label="One less">−</button>
+            <button type="button" class="round" id="qtyDown" aria-label="One less">−</button>
             <input id="qty" name="qty" type="number" min="1" max="10" value="1" inputmode="numeric">
-            <button type="button" id="qtyUp" aria-label="One more">+</button>
+            <button type="button" class="round" id="qtyUp" aria-label="One more">+</button>
           </div>
         </div>
         <div class="f">
@@ -107,7 +114,7 @@
   </section>
 </main>
 
-<footer>
+<footer class="wrap site-footer">
   <span>© 2026 Senseless Zeal, Paris</span>
   <span>All works drawn by hand. Reproduction forbidden without permission.</span>
 </footer>
@@ -121,7 +128,7 @@
       <button type="button" class="round" id="vClose" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
   </div>
-  <div class="stage"><img id="vImg" alt=""></div>
+  <div class="stage"><img class="protect" id="vImg" alt=""></div>
   <div class="meta">
     <h3 id="vTitle"></h3>
     <p id="vMedium"></p>
