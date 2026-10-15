@@ -7,11 +7,31 @@
 /* 1. Data & helpers --------------------------------------------------------- */
 const WORKS = window.WORKS || [];
 const TAGS  = window.TAGS  || [];
-// Prices: keep identical to PRICES in functions/api/order.js
 const SIZES = [
-  {id:"A4", label:"A4 · 21 × 29.7 cm",   price:35},
-  {id:"A3", label:"A3 · 29.7 × 42 cm",   price:55},
-  {id:"A2", label:"A2 · 42 × 59.4 cm",   price:90},
+  {id:"A4", label:"A4 · 21 × 29.7 cm"},
+  {id:"A3", label:"A3 · 29.7 × 42 cm"},
+  {id:"A2", label:"A2 · 42 × 59.4 cm"},
+];
+// Print prices per currency, shipping included. Round local prices, not live exchange rates.
+const PRICES = {
+  EUR: {A4:35, A3:55, A2:90},
+  USD: {A4:39, A3:59, A2:99},
+  GBP: {A4:29, A3:45, A2:75},
+  CAD: {A4:55, A3:85, A2:139},
+  AUD: {A4:59, A3:95, A2:149},
+  NZD: {A4:65, A3:99, A2:165},
+};
+// The only countries we ship to, in this order, with the currency each one pays in.
+const COUNTRIES = [
+  {code:"US", name:"United States",  cur:"USD"},
+  {code:"DE", name:"Germany",        cur:"EUR"},
+  {code:"FR", name:"France",         cur:"EUR"},
+  {code:"ES", name:"Spain",          cur:"EUR"},
+  {code:"IT", name:"Italy",          cur:"EUR"},
+  {code:"GB", name:"United Kingdom", cur:"GBP"},
+  {code:"CA", name:"Canada",         cur:"CAD"},
+  {code:"AU", name:"Australia",      cur:"AUD"},
+  {code:"NZ", name:"New Zealand",    cur:"NZD"},
 ];
 // Orders go straight to FormSubmit. The code below is FormSubmit's alias for the inbox:
 // it delivers to you without your email address ever appearing in the page.
@@ -19,7 +39,10 @@ const ORDER_ENDPOINT = "https://formsubmit.co/ajax/0518167f9410fac0f6a6d632b3ea1
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const $   = s => document.querySelector(s);
-const eur = n => "€" + n;
+// Currency follows the selected country (€ until one is chosen).
+let currency = "EUR";
+const money = (n, cur = currency) => new Intl.NumberFormat("en-US", {style:"currency", currency:cur, maximumFractionDigits:0}).format(n);
+const price = (size, cur = currency) => PRICES[cur][size];
 
 // Discourage casual saving: no right-click menu or dragging on artwork and photos.
 document.addEventListener("contextmenu", e => { if(e.target.closest(".protect")) e.preventDefault(); });
@@ -123,7 +146,7 @@ function show(i){
   $("#vIndex").textContent = `${visible.indexOf(i) + 1} / ${visible.length}`;
   $("#vTitle").textContent = w.title;
   $("#vMedium").textContent = w.medium;
-  $("#vFrom").textContent = `Prints from ${eur(SIZES[0].price)}. Originals on request.`;
+  $("#vFrom").textContent = `Prints from ${money(price("A4"))}. Originals on request.`;
 }
 // step through the works currently visible under the active filter
 function step(d){
@@ -217,22 +240,38 @@ viewer.addEventListener("touchend", e => {
 
 /* 5. Order form ------------------------------------------------------------- */
 const form = $("#form");
-$("#prices").innerHTML = SIZES.map(s => `<div><span>${s.label}</span><span>${eur(s.price)}</span></div>`).join("");
+$("#country").innerHTML = `<option value="" disabled selected>Choose a country</option>` +
+  COUNTRIES.map(c => `<option value="${c.code}">${c.name}</option>`).join("");
+// Pre-select the visitor's country when their browser says it's one we ship to.
+{
+  const region = (navigator.languages || [navigator.language]).map(l => (l.split("-")[1] || "").toUpperCase()).find(r => COUNTRIES.some(c => c.code === r));
+  if(region) $("#country").value = region;
+}
+// Everything that shows a price is redrawn when the currency changes.
+function paintPrices(){
+  const c = COUNTRIES.find(x => x.code === form.country.value);
+  currency = c ? c.cur : "EUR";
+  $("#prices").innerHTML = SIZES.map(s => `<div><span>${s.label}</span><span>${money(price(s.id))}</span></div>`).join("");
+  form.querySelectorAll('input[name="size"]').forEach(r => { r.nextElementSibling.querySelector("i").textContent = money(price(r.value)); });
+  if(!viewer.hidden) $("#vFrom").textContent = `Prints from ${money(price("A4"))}. Originals on request.`;
+}
 $("#piece").innerHTML  = WORKS.map(w => `<option value="${w.id}"></option>`).join("");
 [...$("#piece").options].forEach((o, i) => { o.textContent = WORKS[i].title; });
-$("#sizes").innerHTML  = SIZES.map((s, i) => `<label><input type="radio" name="size" value="${s.id}"${i === 0 ? " checked" : ""}><span><b>${s.id}</b>${eur(s.price)}</span></label>`).join("");
+$("#sizes").innerHTML  = SIZES.map((s, i) => `<label><input type="radio" name="size" value="${s.id}"${i === 0 ? " checked" : ""}><span><b>${s.id}</b><i></i></span></label>`).join("");
 
 function readOrder(){
   const size = SIZES.find(s => s.id === form.size.value) || SIZES[0];
+  const country = COUNTRIES.find(c => c.code === form.country.value);
   const qty  = Math.min(10, Math.max(1, parseInt(form.qty.value, 10) || 1));
   const w    = WORKS.find(x => x.id === form.piece.value) || WORKS[0];
+  const unit = price(size.id);
   return {
-    piece:w.id, title:w.title, size:size.id, unitPrice:size.price, qty, total:size.price * qty,
-    name:form.name.value.trim(), email:form.email.value.trim(), country:form.country.value.trim(),
+    piece:w.id, title:w.title, size:size.id, unitPrice:unit, qty, total:unit * qty, currency,
+    name:form.name.value.trim(), email:form.email.value.trim(), country:country ? country.name : "",
     note:form.note.value.trim(), original:form.original.checked,
   };
 }
-function updateTotal(){ $("#total").textContent = eur(readOrder().total); }
+function updateTotal(){ paintPrices(); $("#total").textContent = money(readOrder().total); }
 function stepQty(d){
   const q = form.qty;
   q.value = Math.min(10, Math.max(1, (parseInt(q.value, 10) || 1) + d));
@@ -248,7 +287,7 @@ form.addEventListener("submit", async e => {
   const o = readOrder(), err = $("#err"), btn = $("#submit");
   const problem = !o.name ? "Add your name."
     : !EMAIL_RE.test(o.email) ? "Add a valid email so the payment link can reach you."
-    : !o.country ? "Add the country the print ships to." : "";
+    : !o.country ? "Choose the country the print ships to." : "";
   if(problem){ err.textContent = problem; err.hidden = false; return; }
   err.hidden = true;
   btn.disabled = true; btn.textContent = "Sending…";
@@ -257,7 +296,7 @@ form.addEventListener("submit", async e => {
   try{
     const ref = "SZ-" + Date.now().toString(36).toUpperCase().slice(-6);
     const confirmation =
-      `Thank you, ${o.name}.\n\nYour order ${ref}: ${o.qty} × ${o.title}, ${o.size} print — ${eur(o.total)}, shipping to ${o.country} included.\n\n` +
+      `Thank you, ${o.name}.\n\nYour order ${ref}: ${o.qty} × ${o.title}, ${o.size} print — ${money(o.total)}, shipping to ${o.country} included.\n\n` +
       `I'll send your secure payment link personally within 24 hours. Nothing is charged until you pay through it.\n\n` +
       (o.original ? `You mentioned interest in the original drawing. I'll write to you about it.\n\n` : "") +
       `Every work is drawn by hand. No AI.\nSenseless Zeal`;
@@ -265,11 +304,11 @@ form.addEventListener("submit", async e => {
       method:"POST",
       headers:{"Content-Type":"application/json", Accept:"application/json"},
       body:JSON.stringify({
-        _subject:`New order ${ref}: ${o.qty} × ${o.title} ${o.size} (${eur(o.total)})${o.original ? " + original interest" : ""}`,
+        _subject:`New order ${ref}: ${o.qty} × ${o.title} ${o.size} (${money(o.total)})${o.original ? " + original interest" : ""}`,
         _template:"table", _captcha:"false",
         _autoresponse:confirmation,                 // FormSubmit emails this to the buyer ("email" field)
-        Reference:ref, Work:o.title, Size:o.size, Quantity:o.qty, Total:eur(o.total),
-        Name:o.name, email:o.email, Country:o.country,
+        Reference:ref, Work:o.title, Size:o.size, Quantity:o.qty, Total:money(o.total),
+        Currency:o.currency, Name:o.name, email:o.email, Country:o.country,
         "Interested in original":o.original ? "Yes" : "No", Note:o.note || "—",
       }),
     });
@@ -286,7 +325,7 @@ form.addEventListener("submit", async e => {
   box.innerHTML = `<div class="done" role="status"><h3>Thank you.</h3><p class="summary"></p>
     <p>Check your inbox for the confirmation email with the payment link. Your print goes into production once payment is complete.</p>
     <button class="btn ghost" type="button" id="again">Order another print</button></div>`;
-  box.querySelector(".summary").textContent = `${o.qty} × ${o.title}, ${o.size} — ${eur(o.total)}.` + (sent ? ` Confirmation sent to ${o.email}.` : "");
+  box.querySelector(".summary").textContent = `${o.qty} × ${o.title}, ${o.size} — ${money(o.total)}.` + (sent ? ` Confirmation sent to ${o.email}.` : "");
   $("#again").addEventListener("click", () => location.reload());
 });
 

@@ -26,7 +26,7 @@ wrangler.jsonc        Cloudflare Workers config
 
 Each image gets a frame in its own background colour so the drawing breathes away from the edges. `frame` is the border on each side as a fraction of the longest side (default `0.12`); set `"frame": 0` for scans that already have enough margin (Companion, Mirror). `trim` shaves pixels off the edges first, for scanner hairlines.
 
-Prices live in `SIZES` (`public/js/site.js`).
+Prices per currency live in `PRICES`, countries in `COUNTRIES` (`public/js/site.js`).
 
 ## 4. Deploy (Cloudflare Workers, connected to GitHub)
 Every push to `main` deploys automatically to senselesszeal.com.
