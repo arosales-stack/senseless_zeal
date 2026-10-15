@@ -21,7 +21,7 @@
     { "id": "pincushion", "title": "Voodoo Girl", "medium": "Hand-drawn line and stipple, colour on black", "frame": 0.2, "tags": ["tim-burton"]},
     { "id": "le-diable", "title": "XV. Le Diable", "medium": "Hand-drawn line, white and red on black", "tags": ["tarot"]},
     { "id": "le-pendu", "title": "XII. Le Pendu", "medium": "Hand-drawn line, white on black", "tags": ["tarot"]},
-    { "id": "heart-ink", "title": "Puked Heart", "medium": "Hand-drawn line, black on white", "frame": { "top": 0.28, "left": 0.28, "right": 0.08, "bottom": 0.08}, "tags": ["symbolism"], "outline": "#7a7a7a" },
+    { "id": "heart-ink", "title": "Puked", "medium": "Hand-drawn line, black on white", "frame": { "top": 0.28, "left": 0.28, "right": 0.08, "bottom": 0.08}, "tags": ["symbolism"], "outline": "#7a7a7a" },
     { "id": "golden-ring", "title": "New Moon", "medium": "Hand-drawn line and stipple, gold and pink on black", "frame": 0.22, "tags": ["symbolism"], "tighten": 0.4 },
     { "id": "pin-throne", "title": "Pin Cushion Queen", "medium": "Hand-drawn line and stipple, fluorescent colours on black", "frame": 0.3, "tags": ["tim-burton"], "tighten": 0.4 },
     { "id": "jack", "title": "Jack", "medium": "Hand-drawn line, white on black", "tags": ["tim-burton", "skeleton"], "tighten": 0.4 , "crush": 28},

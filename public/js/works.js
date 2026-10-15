@@ -138,7 +138,7 @@ window.WORKS = [
  },
  {
   "id": "heart-ink",
-  "title": "Puked Heart",
+  "title": "Puked",
   "medium": "Hand-drawn line, black on white",
   "tags": [
    "symbolism"
