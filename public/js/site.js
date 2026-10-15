@@ -14,12 +14,12 @@ const SIZES = [
 ];
 // Print prices per currency, shipping included. Round local prices, not live exchange rates.
 const PRICES = {
-  EUR: {A4:35, A3:55, A2:90},
-  USD: {A4:39, A3:59, A2:99},
-  GBP: {A4:29, A3:45, A2:75},
-  CAD: {A4:55, A3:85, A2:139},
-  AUD: {A4:59, A3:95, A2:149},
-  NZD: {A4:65, A3:99, A2:165},
+  EUR: {A4:29, A3:49, A2:79},
+  USD: {A4:32, A3:55, A2:89},
+  GBP: {A4:25, A3:42, A2:69},
+  CAD: {A4:45, A3:75, A2:125},
+  AUD: {A4:49, A3:85, A2:135},
+  NZD: {A4:55, A3:89, A2:145},
 };
 // The only countries we ship to, in this order, with the currency each one pays in.
 const COUNTRIES = [
