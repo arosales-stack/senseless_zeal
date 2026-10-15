@@ -1,0 +1,11 @@
+// Cloudflare Workers config. The site in public/ is served as static assets;
+// any request that isn't a file (POST /api/order) runs worker/index.js.
+{
+  "name": "senseless-zeal",
+  "main": "worker/index.js",
+  "compatibility_date": "2025-06-01",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  }
+}

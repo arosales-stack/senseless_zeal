@@ -54,11 +54,18 @@ export async function onRequestPost({ request, env }) {
     body: JSON.stringify({ from: env.FROM_EMAIL, to, subject, html, ...(reply_to ? { reply_to } : {}) }),
   });
 
-  const [a, b] = await Promise.all([
-    send(email, `Your print order ${ref}`, buyerHtml, env.ORDER_TO_EMAIL),
-    send(env.ORDER_TO_EMAIL, `New order ${ref}: ${qty} × ${title} ${size} (€${total})${o.original ? " + original interest" : ""}`, youHtml, email),
-  ]);
-  if (!a.ok || !b.ok) return json({ error: "Email failed" }, 502);
+  if (!env.RESEND_API_KEY || !env.FROM_EMAIL || !env.ORDER_TO_EMAIL) {
+    return json({ error: "Ordering is not configured yet" }, 503);
+  }
+  try {
+    const [a, b] = await Promise.all([
+      send(email, `Your print order ${ref}`, buyerHtml, env.ORDER_TO_EMAIL),
+      send(env.ORDER_TO_EMAIL, `New order ${ref}: ${qty} × ${title} ${size} (€${total})${o.original ? " + original interest" : ""}`, youHtml, email),
+    ]);
+    if (!a.ok || !b.ok) return json({ error: "Email failed" }, 502);
+  } catch {
+    return json({ error: "Email service unreachable" }, 502);
+  }
   return json({ ok: true, ref });
 }
 

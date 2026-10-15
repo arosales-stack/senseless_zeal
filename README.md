@@ -32,14 +32,22 @@ Create one Payment Link per size (A4 €35, A3 €55, A2 €90) with "customer c
 ## 3. Email (Resend)
 Create a Resend account, verify your domain, create an API key.
 
-## 4. Deploy
-1. Push this folder to GitHub, or run `npx wrangler pages deploy public` from this folder.
-2. Cloudflare → Workers & Pages → your project → Settings → Variables and secrets:
-   - `RESEND_API_KEY` (secret)
-   - `FROM_EMAIL` — `Senseless Zeal <prints@yourdomain.com>`
-   - `ORDER_TO_EMAIL` — your address
-   - `PAYMENT_LINK_A4`, `PAYMENT_LINK_A3`, `PAYMENT_LINK_A2`
-3. Build output directory: `public`. No build command.
+## 4. Deploy (Cloudflare Workers, connected to GitHub)
+The repo is connected to the `senseless-zeal` Worker. Every push to `main` deploys automatically.
+- `wrangler.jsonc` serves `public/` as the site; `worker/index.js` handles `POST /api/order`
+  using `functions/api/order.js` (the same file also works on Cloudflare Pages).
+- `originals/`, `tools/` and `works.json` are never published.
+
+In Cloudflare → Workers & Pages → senseless-zeal → Settings → Variables and secrets, add:
+- `RESEND_API_KEY` (secret)
+- `FROM_EMAIL` — `Senseless Zeal <prints@yourdomain.com>`
+- `ORDER_TO_EMAIL` — your address
+- `PAYMENT_LINK_A4`, `PAYMENT_LINK_A3`, `PAYMENT_LINK_A2`
+
+Until those exist, the order form answers "not configured" instead of sending.
+Custom domain: Worker → Settings → Domains & Routes → Add → Custom domain.
+
+Local test: `npx wrangler dev` then open http://localhost:8787
 
 ## Reading the demand test
 Every order email to you carries the work, size, quantity, total and whether the buyer wants the original. Paid vs. unpaid shows up in Stripe. Unpaid orders are still signal: they tell you which works and sizes pull.
