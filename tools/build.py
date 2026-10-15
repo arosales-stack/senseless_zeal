@@ -185,6 +185,13 @@ def main():
     )
     print(f"wrote        {OUT_JS.relative_to(ROOT)}")
 
+    # the Worker uses this to give each work its own link preview (title + image)
+    if A4 and OUT_IMG == ROOT / "public" / "img":
+        (ROOT / "worker" / "works.json").write_text(
+            json.dumps([{"id": w["id"], "title": w["title"], "medium": w["medium"], "w": w["w"], "h": w["h"]} for w in works],
+                       ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        print("wrote        worker/works.json")
+
 
 if __name__ == "__main__":
     main()

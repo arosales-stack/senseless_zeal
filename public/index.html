@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Senseless Zeal — Drawings</title>
 <meta name="description" content="Hand-drawn works by Senseless Zeal. Prints to order, originals on request.">
+<meta property="og:site_name" content="Senseless Zeal">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Senseless Zeal — Drawings">
+<meta property="og:description" content="Hand-drawn works by Senseless Zeal. Prints to order, originals on request.">
+<meta property="og:image" content="https://senselesszeal.com/img/cosmic-heart.webp">
+<meta property="og:url" content="https://senselesszeal.com/">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Gloock&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap">
@@ -121,9 +128,11 @@
 <div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-labelledby="vTitle">
   <div class="vbar">
     <span id="vIndex"></span>
+    <span class="vtoast" id="vToast" role="status" aria-live="polite"></span>
     <div>
       <button type="button" class="round" id="vPrev" aria-label="Previous work"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button type="button" class="round" id="vNext" aria-label="Next work"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      <button type="button" class="round" id="vShare" aria-label="Share this work"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg></button>
       <button type="button" class="round" id="vClose" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
   </div>
