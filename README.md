@@ -1,6 +1,6 @@
 # Senseless Zeal — portfolio + print orders
 
-Static site (`public/`) plus one Cloudflare Pages Function (`functions/api/order.js`).
+Static site (`public/`) plus one order endpoint (`functions/api/order.js`), deployed as a Cloudflare Worker.
 No login, no database: each order sends a confirmation email with a Stripe payment link to the buyer, and a copy to you.
 
 ## Project layout
