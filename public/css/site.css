@@ -94,17 +94,23 @@ header{position:sticky;top:0;z-index:5;background:var(--paper);display:flex;alig
 /* three sketchbook photos, same size, sitting in the About text column */
 .studio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,1.5vw,18px);margin-top:36px}
 .studio img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:4px;background:var(--wash);-webkit-touch-callout:none;user-select:none}
+@media (max-width:640px){
+  /* phones: bigger photos, two and a half in view, swipe to reach the third */
+  .studio{display:flex;gap:10px;overflow-x:auto;margin-right:calc(var(--gutter) * -1);padding-right:var(--gutter);scroll-snap-type:x mandatory;scrollbar-width:none}
+  .studio::-webkit-scrollbar{display:none}
+  .studio img{flex:none;width:calc((100vw - var(--gutter)) / 2.5 - 10px);scroll-snap-align:start}
+}
 
 /* influences: same pill language as the filter tags, but drawn with the switch's dotted line
    and no punched hole, because they're words, not buttons */
 .about .influences-label{margin:40px 0 14px;color:var(--graphite);font-size:16px}
 .influences{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
 .influences li{display:inline-flex;align-items:center;height:42px;padding:0 18px;border:2px dotted var(--ink);border-radius:999px;font-size:16px;font-weight:500;line-height:1}
-@media (max-width:860px){.about{grid-template-columns:1fr}}
+@media (max-width:860px){.about{grid-template-columns:minmax(0,1fr)}}
 
 /* order */
 .order{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:32px clamp(24px,5vw,80px);padding-block:clamp(72px,10vw,140px)}
-@media (max-width:860px){.order{grid-template-columns:1fr}}
+@media (max-width:860px){.order{grid-template-columns:minmax(0,1fr)}}
 .order aside p{color:var(--graphite);max-width:38ch;margin:16px 0 0}
 .prices{margin-top:24px;display:grid;max-width:320px}
 .prices div{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--hair);padding:10px 0;font-variant-numeric:tabular-nums}
