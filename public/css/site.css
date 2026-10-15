@@ -95,10 +95,10 @@ header{position:sticky;top:0;z-index:5;background:var(--paper);display:flex;alig
 .studio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,1.5vw,18px);margin-top:36px}
 .studio img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:4px;background:var(--wash);-webkit-touch-callout:none;user-select:none}
 @media (max-width:640px){
-  /* phones: bigger photos, two and a half in view, swipe to reach the third */
+  /* phones: bigger photos, about 1.7 in view, swipe for the rest */
   .studio{display:flex;gap:10px;overflow-x:auto;margin-right:calc(var(--gutter) * -1);padding-right:var(--gutter);scroll-snap-type:x mandatory;scrollbar-width:none}
   .studio::-webkit-scrollbar{display:none}
-  .studio img{flex:none;width:calc((100vw - var(--gutter)) / 2.5 - 10px);scroll-snap-align:start}
+  .studio img{flex:none;width:calc((100vw - var(--gutter)) / 1.7 - 10px);scroll-snap-align:start}
 }
 
 /* influences: same pill language as the filter tags, but drawn with the switch's dotted line
