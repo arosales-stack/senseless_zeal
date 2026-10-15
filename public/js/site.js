@@ -18,24 +18,19 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const $   = s => document.querySelector(s);
 const eur = n => "€" + n;
-const store = {
-  get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
-  set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} },
-};
 
 // Discourage casual saving: no right-click menu or dragging on artwork and photos.
 document.addEventListener("contextmenu", e => { if(e.target.closest(".protect")) e.preventDefault(); });
 document.addEventListener("dragstart",   e => { if(e.target.closest(".protect")) e.preventDefault(); });
 
 /* 2. Theme ------------------------------------------------------------------ */
-// Light by default. The saved choice is applied in <head> before first paint; this keeps the switch in sync.
+// Every visit opens in light mode. The switch changes it for this visit only; nothing is remembered.
 const root = document.documentElement;
 const themeBtn = $("#theme");
 const isDark = () => root.dataset.theme === "dark";
 const paintTheme = () => themeBtn.setAttribute("aria-checked", String(isDark()));
 themeBtn.addEventListener("click", () => {
   root.dataset.theme = isDark() ? "light" : "dark";
-  store.set("theme", root.dataset.theme);
   paintTheme();
 });
 paintTheme();
