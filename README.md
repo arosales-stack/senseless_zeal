@@ -29,21 +29,17 @@ Prices live in `SIZES` (`public/js/site.js`) and `PRICES` (`functions/api/order.
 ## 2. Payments (Stripe Payment Links)
 Create one Payment Link per size (A4 €35, A3 €55, A2 €90) with "customer can adjust quantity" on. Paste each URL into the env vars below.
 
-## 3. Email (Resend)
-Create a Resend account, verify your domain, create an API key.
-
 ## 4. Deploy (Cloudflare Workers, connected to GitHub)
 The repo is connected to the `senseless-zeal` Worker. Every push to `main` deploys automatically.
 - `wrangler.jsonc` serves `public/` as the site; `worker/index.js` handles `POST /api/order`
   using `functions/api/order.js` (the same file also works on Cloudflare Pages).
 - `originals/`, `tools/` and `works.json` are never published.
 
-In Cloudflare → Workers & Pages → senseless-zeal → Settings → Variables and secrets, add:
-- `RESEND_API_KEY` (secret)
-- `FROM_EMAIL` — `Senseless Zeal <prints@yourdomain.com>`
-- `ORDER_TO_EMAIL` — your address
-- `PAYMENT_LINK_A4`, `PAYMENT_LINK_A3`, `PAYMENT_LINK_A2`
+Orders go through FormSubmit (free). In Cloudflare → Workers & Pages → senseless-zeal → Settings → Variables and secrets, add:
+- `FORMSUBMIT_TO` (secret) — the inbox that receives orders (kept out of this public repo)
+- optional `PAYMENT_LINK_A4`, `PAYMENT_LINK_A3`, `PAYMENT_LINK_A2` — Stripe Payment Links
 
+The first order triggers a FormSubmit activation email: click it once.
 Until those exist, the order form answers "not configured" instead of sending.
 Custom domain: Worker → Settings → Domains & Routes → Add → Custom domain.
 
