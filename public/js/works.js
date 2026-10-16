@@ -193,8 +193,8 @@ window.WORKS = [
   "h": 1000
  },
  {
-  "id": "paris",
-  "title": "Paris",
+  "id": "city-life",
+  "title": "City Life",
   "medium": "Hand-drawn line, black on white",
   "tags": [
    "symbolism",
